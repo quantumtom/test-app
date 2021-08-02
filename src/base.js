@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './list.css';
+import './Menu.css';
 import Menu from './Menu';
 import reportWebVitals from './reportWebVitals';
 
