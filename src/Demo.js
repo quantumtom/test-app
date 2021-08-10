@@ -7,13 +7,15 @@ const items = Data.work;
 const getData = info =>
   Array.from({length: info.length}, (v, k) => k).map(k => ({
       id: `item-${k}`,
-      title: `${info[k].title}`
+      title: `${info[k].title}`,
+      content: `${info[k].content}`,
+      url: `${info[k].url}`
     }
   ));
 
 const listItems = items.map((item) =>
     <li key={item.guid}>
-      {item.title}
+      {item.title} | {item.content} | {item.url}
     </li>
 );
 
