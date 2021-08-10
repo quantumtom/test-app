@@ -1,4 +1,3 @@
-import Work from './work.json';
+import Data from './work.json';
 
-export default Work
-
+export default Data
