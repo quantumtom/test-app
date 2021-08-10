@@ -1,13 +1,18 @@
 import React, { Component } from "react";
+import Data from './data.js';
 import './Menu.css';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-// fake data generator
-const getItems = count =>
-  Array.from({ length: count }, (v, k) => k).map(k => ({
+const work = Data.work
+
+const getData = work =>
+  Array.from({ length: work.length}, (v, k) => k).map(k => ({
       id: `item-${k}`,
-      content: `item ${k}`
-  }));
+      title: `${work[k].title}`,
+      copy: `${work[k].copy}`,
+      url: `${work[k].url}`
+    }
+  ));
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -36,14 +41,14 @@ const getItemStyle = (isDragging, draggableStyle) => ({
 const getListStyle = isDraggingOver => ({
   background: isDraggingOver ? "lightblue" : "lightgrey",
   padding: grid,
-  width: 250
+  width: 500
 });
 
 class Menu extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: getItems(10)
+      items: getData(work)
     };
     this.onDragEnd = this.onDragEnd.bind(this);
   }
@@ -89,7 +94,9 @@ class Menu extends Component {
                         provided.draggableProps.style
                       )}
                     >
-                      {item.content}
+                      {item.title}<br/>
+                      {item.copy}<br/>
+                      {item.url}
                     </div>
                   )}
                 </Draggable>

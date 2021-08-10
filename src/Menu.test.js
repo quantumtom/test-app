@@ -3,6 +3,6 @@ import Menu from './Menu';
 
 test('renders learn react menu', () => {
     render(<Menu />);
-    const menuElement = screen.getByText(/item 0/i);
+    const menuElement = screen.getByText(/DODGE/i);
     expect(menuElement).toBeInTheDocument();
 });
