@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import Data from './data.js';
 import './Demo.css';
+import { Button } from '@material-ui/core';
 
 const items = Data.work;
 
@@ -28,11 +29,19 @@ class Demo extends Component {
   };
 
   render() {
-    return (
-      <ul>
-        {listItems}
-      </ul>
-    )};
+    return <React.Fragment>
+      <div>
+        <div>
+          <Button color="primary">Button</Button>
+        </div>
+        <div>
+          <ul>
+            {listItems}
+          </ul>
+        </div>
+      </div>
+    </React.Fragment>
+    }
 }
 
 export default Demo;
