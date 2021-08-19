@@ -1,7 +1,5 @@
 import React, {Component} from "react";
 import './Demo.css';
-import '@fontsource/roboto';
-import "@fontsource/material-icons";
 import SaveButton from './SaveButton';
 import Menu from './Menu';
 import List from './List';
@@ -10,15 +8,15 @@ class Demo extends Component {
   render() {
     return <React.Fragment>
       <div>
-        <div>Demo Page</div>
+        <h1>Demo Page</h1>
         <div>
-          <SaveButton/>
+          <SaveButton />
         </div>
         <div>
-          <Menu/>
+          <Menu />
         </div>
         <div>
-          <List/>
+          <List />
         </div>
       </div>
     </React.Fragment>
