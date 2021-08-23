@@ -1,7 +1,5 @@
 import React, {Component} from "react";
 import Data from './data'
-import './Demo.css';
-
 const items = Data.work;
 
 const getData = info =>
