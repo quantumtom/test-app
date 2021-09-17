@@ -1,18 +1,6 @@
 import React, { Component } from "react";
-import Data from './data.js';
 import './Menu.css';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-
-const work = Data.work
-
-const getData = work =>
-  Array.from({ length: work.length}, (v, k) => k).map(k => ({
-      id: `item-${k}`,
-      title: `${work[k].title}`,
-      copy: `${work[k].copy}`,
-      url: `${work[k].url}`
-    }
-  ));
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -48,9 +36,32 @@ class Menu extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: getData(work)
+      error: null,
+      isLoaded: false,
+      items: []
     };
     this.onDragEnd = this.onDragEnd.bind(this);
+  }
+
+  componentDidMount() {
+    fetch("http://localhost:8080/v1/work")
+      .then(res => res.json())
+      .then(result => {
+          // Made it here.
+          this.setState({
+            isLoaded: true,
+            items: result
+          });
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          this.setState({
+            error
+          });
+        }
+      ).catch(console.error);
   }
 
   onDragEnd(result) {
