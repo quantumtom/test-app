@@ -2,6 +2,11 @@ import React, { Component } from "react";
 import './Menu.css';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
+const axios = require('axios').default;
+
+axios.defaults.baseURL = 'http://localhost:8080';
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
     const result = Array.from(list);
@@ -75,6 +80,19 @@ class Menu extends Component {
       result.source.index,
       result.destination.index
     );
+
+    axios.post('http://localhost:8080/v1/work/create',
+      items,
+      {
+        headers: {
+          "Access-Control-Allow-Origin": "http://localhost:3000"
+        }})
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
     this.setState({
       items
