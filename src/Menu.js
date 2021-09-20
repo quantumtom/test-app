@@ -2,9 +2,12 @@ import React, { Component } from "react";
 import './Menu.css';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
+const SERVER_BASE = process.env.SERVER_BASE || 'http://localhost:8080';
+const CLIENT_BASE = process.env.CLIENT_BASE || 'http://localhost:3000';
+
 const axios = require('axios').default;
 
-axios.defaults.baseURL = 'http://localhost:8080';
+axios.defaults.baseURL = SERVER_BASE;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 // a little function to help us with reordering the result
@@ -48,8 +51,11 @@ class Menu extends Component {
     this.onDragEnd = this.onDragEnd.bind(this);
   }
 
+  // TODO
+  // Swtich 'fetch' to use axios.get
+  // https://github.com/axios/axios
   componentDidMount() {
-    fetch("http://localhost:8080/v1/work")
+    fetch(SERVER_BASE + '/v1/work')
       .then(res => res.json())
       .then(result => {
           // Made it here.
@@ -81,11 +87,13 @@ class Menu extends Component {
       result.destination.index
     );
 
-    axios.post('http://localhost:8080/v1/work/create',
+    axios.post(`/v1/work/create`,
       items,
       {
         headers: {
-          "Access-Control-Allow-Origin": "http://localhost:3000"
+          "Access-Control-Allow-Origin": "*",
+          // "Access-Control-Allow-Origin": CLIENT_BASE,
+          "Vary": "Origin"
         }})
       .then(function (response) {
         console.log(response);
