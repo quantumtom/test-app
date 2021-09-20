@@ -3,7 +3,7 @@ import './Menu.css';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const SERVER_BASE = process.env.SERVER_BASE || 'http://localhost:8080';
-const CLIENT_BASE = process.env.CLIENT_BASE || 'http://localhost:3000';
+const CLIENT_PORT = process.env.CLIENT_PORT || '3000';
 
 const axios = require('axios').default;
 
