@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import './Menu.css';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
-const SERVER_BASE = process.env.SERVER_BASE || 'http://localhost:8080';
-const CLIENT_PORT = process.env.CLIENT_PORT || '3000';
+const SERVER_BASE = process.env.SERVER_BASE || 'http://localhost';
+const SERVER_PORT = process.env.SERVER_PORT || '8080';
 
 const axios = require('axios').default;
 
-axios.defaults.baseURL = SERVER_BASE;
+axios.defaults.baseURL = SERVER_BASE + ":" + SERVER_PORT;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 // a little function to help us with reordering the result
@@ -55,7 +55,7 @@ class Menu extends Component {
   // Swtich 'fetch' to use axios.get
   // https://github.com/axios/axios
   componentDidMount() {
-    fetch(SERVER_BASE + '/v1/work')
+    fetch(axios.defaults.baseURL + '/v1/work')
       .then(res => res.json())
       .then(result => {
           // Made it here.
