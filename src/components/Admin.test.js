@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import Menu from './Menu';
+import Admin from './Admin';
 
 test('renders menu', () => {
-  render(<Menu />);
+  render(<Admin />);
   const menuElement = screen.getByText(/DODGE/i);
   expect(menuElement).toBeInTheDocument();
 });

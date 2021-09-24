@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import './Menu.css';
+import './Admin.css';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 const SERVER_BASE = process.env.SERVER_BASE || 'http://localhost';
@@ -12,11 +12,11 @@ axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
-    const result = Array.from(list);
-    const [removed] = result.splice(startIndex, 1);
-    result.splice(endIndex, 0, removed);
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
 
-    return result;
+  return result;
 };
 
 const grid = 8;
@@ -40,7 +40,7 @@ const getListStyle = isDraggingOver => ({
   width: 500
 });
 
-class Menu extends Component {
+class Admin extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -147,4 +147,4 @@ class Menu extends Component {
   }
 }
 
-export default Menu;
+export default Admin;
