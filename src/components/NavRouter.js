@@ -9,8 +9,7 @@ import {
 } from "react-router-dom";
 
 class NavRouter extends Component {
-   render () {
-     return (
+     return
        <Router>
         <Switch>
           <Route path="/commercials">
@@ -27,7 +26,7 @@ class NavRouter extends Component {
           </Route>
         </Switch>
       </Router>
-     )};
+     ;
 }
 
 export default NavRouter;
