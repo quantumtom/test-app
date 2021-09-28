@@ -14,7 +14,7 @@ class Commercials extends Component {
   };
 
   // TODO
-  // Swtich 'fetch' to use axios.get
+  // Swtich 'fetch' out and use axios.get instead.
   // https://github.com/axios/axios
   componentDidMount() {
     fetch('http://localhost:8080/v1/work')
