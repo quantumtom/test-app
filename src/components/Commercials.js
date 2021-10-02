@@ -1,7 +1,7 @@
 import React, { Component } from "react";
+import './Commercials.css';
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import Stack from "react-bootstrap/Stack";
 
 class Commercials extends Component {
   constructor(props) {
@@ -38,26 +38,30 @@ class Commercials extends Component {
   }
 
   render() {
+    const items = this.state.items;
+
     return <React.Fragment>
-      <h2>Commercials by Marc Flennert</h2>
-      <main>
-        <article>
-          <Container fluid>
-            <Row className="justify-content-center">
-              <Col>
-                {this.state.items.map((item, index) => (
-                  <div key={item.title + `-` + item.id} className="poster">
-                    <div>
-                      <iframe title={`iframe-` + index} src={item.url} className="embed-responsive-item" frameBorder="0" allowFullScreen/>
-                    </div>
-                    <p className="video-title mt-3 mb-5">{item.title} - <em>{item.copy}</em></p>
-                  </div>
-                ))}
-              </Col>
-            </Row>
-          </Container>
-        </article>
-      </main>
+      <Container>
+        <Stack gap={5}>
+          {items.map((item, index) => (
+            <Container>
+              <div key={item.title + `-` + item.jobID} className="poster">
+                <div className="embed-responsive embed-responsive-16by9">
+                  <iframe
+                    title={`iframe-` + index}
+                    src={'https://player.vimeo.com/video/' + item.videoID}
+                    className="embed-responsive-item"
+                    frameBorder="0"
+                    allowFullScreen />
+                </div>
+              </div>
+              <div>
+                <p className="video-title mt-3 mb-5">{item.title} - <em>{item.description}</em></p>
+              </div>
+            </Container>
+          ))}
+        </Stack>
+      </Container>
     </React.Fragment>
   }
 }

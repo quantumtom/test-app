@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import Stack from "react-bootstrap/Stack";
 const axios = require('axios').default;
 
 const SERVER_BASE = process.env.SERVER_BASE || 'http://localhost';
@@ -45,21 +44,26 @@ class Shorts extends Component {
     const items = this.state.items;
 
     return <React.Fragment>
-        <Container fluid>
-          <Row>
-            <Col className="justify-content-center">
-              {items.map((item, index) => (
-                <div key={item.title + `-` + item.id} className="poster">
-                  <div>
-                    <iframe title={`iframe-` + index} src={item.url} className="embed-responsive-item" frameBorder="0" allowFullScreen/>
+        <Container>
+          <Stack gap={5}>
+            {items.map((item, index) => (
+              <Container>
+                <div key={item.title + `-` + item.jobID} className="poster">
+                  <div className="embed-responsive embed-responsive-16by9">
+                    <iframe
+                      title={`iframe-` + index}
+                      src={'https://player.vimeo.com/video/' + item.videoID}
+                      className="embed-responsive-item"
+                      frameBorder="0"
+                      allowFullScreen />
                   </div>
                   <div>
-                    <p className="video-title mt-3 mb-5">{item.title} - <em>{item.copy}</em></p>
+                    <p className="video-title mt-3 mb-5">{item.title} - <em>{item.description}</em></p>
                   </div>
                 </div>
-              ))}
-            </Col>
-          </Row>
+              </Container>
+            ))}
+          </Stack>
         </Container>
     </React.Fragment>
   }
