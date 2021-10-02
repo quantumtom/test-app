@@ -47,8 +47,8 @@ class Shorts extends Component {
         <Container>
           <Stack gap={5}>
             {items.map((item, index) => (
-              <Container>
-                <div key={item.title + `-` + item.jobID} className="poster">
+              <Container key={item.title + `-` + index}>
+                <div className="poster">
                   <div className="embed-responsive embed-responsive-16by9">
                     <iframe
                       title={`iframe-` + index}
