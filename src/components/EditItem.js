@@ -22,11 +22,9 @@ const EditItem = (props) => {
 
   const contentEditable = React.createRef();
 
-  const handleChange = evt => {
-  };
-
   const handleBlur = evt => {
     console.log('handleBlur');
+    console.dir(evt);
   };
 
   return (
@@ -49,7 +47,6 @@ const EditItem = (props) => {
           <ContentEditable
             html={item.title}
             innerRef={contentEditable}
-            onChange={handleChange} // handle innerHTML change
             onBlur={handleBlur}
             tagName={'article'} // Use a custom HTML tag (uses a div by default)
             data-value-type='title'
@@ -57,7 +54,6 @@ const EditItem = (props) => {
           <ContentEditable
             html={item.description}
             innerRef={contentEditable}
-            onChange={handleChange} // handle innerHTML change
             onBlur={handleBlur}
             tagName={'article'} // Use a custom HTML tag (uses a div by default)
             data-value-type='description'
@@ -65,7 +61,6 @@ const EditItem = (props) => {
           <ContentEditable
             html={item.videoID}
             innerRef={contentEditable}
-            onChange={handleChange} // handle innerHTML change
             onBlur={handleBlur}
             tagName={'article'} // Use a custom HTML tag (uses a div by default)
             data-value-type='videoID'

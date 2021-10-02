@@ -11,23 +11,23 @@ class NavBar extends Component {
         <Navbar.Collapse id="basic-navbar-nav">
           <Container>
             <Nav className="justify-content-center"
-              // activeKey='/commercials'
-              // onSelect={(selectedKey) => alert('selectedKey is ' + selectedKey)}
+              defaultActiveKey='/commercials'
+              onSelect={(selectedKey) => this.onSelect(selectedKey)}
             >
               <Nav.Item>
-                <Nav.Link eventKey="/commercials" className="text-uppercase" target="_top" href="/commercials">Commercials</Nav.Link>
+                <Nav.Link eventKey="commercials" className="text-uppercase" target="_top" href="/commercials">Commercials</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="/shorts" className="text-uppercase" target="_top" href="/shorts">Shorts</Nav.Link>
+                <Nav.Link eventKey="shorts" className="text-uppercase" target="_top" href="/shorts">Shorts</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey='/photography' className="nav-link text-uppercase" target="_blank" href="https://photo.marcflennert.com" rel="noopener">Photography</Nav.Link>
+                <Nav.Link eventKey='photography' className="nav-link text-uppercase" target="_blank" href="https://photo.marcflennert.com" rel="noopener">Photography</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="/about" className="text-uppercase" target="_top" href="/about">About</Nav.Link>
+                <Nav.Link eventKey="about" className="text-uppercase" target="_top" href="/about">About</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey='/contact' className="nav-link text-uppercase" target="_top" href="mailto:info@marcflennert.com">Contact</Nav.Link>
+                <Nav.Link eventKey='contact' className="nav-link text-uppercase" target="_top" href="mailto:info@marcflennert.com">Contact</Nav.Link>
               </Nav.Item>
             </Nav>
           </Container>

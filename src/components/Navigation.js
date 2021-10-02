@@ -12,8 +12,7 @@ import NavBar from './NavBar';
 import About from './About';
 import Commercials from './Commercials';
 import Shorts from './Shorts';
-
-import List from './List';
+import Lists from './Lists';
 
 class Navigation extends Component {
   render() {
@@ -33,8 +32,8 @@ class Navigation extends Component {
           <Route path="/about">
             <About />
           </Route>
-          <Route path="/list">
-            <List />
+          <Route path="/lists">
+            <Lists />
           </Route>
         </Switch>
       </Router>
