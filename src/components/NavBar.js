@@ -15,7 +15,7 @@ class NavBar extends Component {
               // onSelect={(selectedKey) => alert('selectedKey is ' + selectedKey)}
             >
               <Nav.Item>
-                <Nav.Link eventKey="/" className="text-uppercase" target="_top" href="/commercials">Commercials</Nav.Link>
+                <Nav.Link eventKey="/commercials" className="text-uppercase" target="_top" href="/commercials">Commercials</Nav.Link>
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link eventKey="/shorts" className="text-uppercase" target="_top" href="/shorts">Shorts</Nav.Link>

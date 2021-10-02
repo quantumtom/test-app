@@ -1,11 +1,11 @@
 import React, { Component } from "react";
 import './Navigation.css';
-import Container from "react-bootstrap/Container";
 
 import {
   BrowserRouter as Router,
   Switch,
-  Route
+  Route,
+  Redirect
 } from "react-router-dom";
 
 import NavBar from './NavBar';
@@ -20,22 +20,25 @@ class Navigation extends Component {
     return (
       <Router>
         <NavBar />
-          <Switch>
-            <Route path="/">
-              <Commercials />
-            </Route>
-            <Route path="/shorts">
-              <Shorts />
-            </Route>
-            <Route path="/about">
-              <About />
-            </Route>
-            <Route path="/list">
-              <List />
-            </Route>
-          </Switch>
+        <Switch>
+          <Route exact path="/">
+            <Redirect to="/commercials" />
+          </Route>
+          <Route path="/commercials">
+            <Commercials />
+          </Route>
+          <Route path="/shorts">
+            <Shorts />
+          </Route>
+          <Route path="/about">
+            <About />
+          </Route>
+          <Route path="/list">
+            <List />
+          </Route>
+        </Switch>
       </Router>
-    );
+    )
   }
 }
 

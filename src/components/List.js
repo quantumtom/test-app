@@ -117,7 +117,7 @@ class List extends Component {
     const items = this.state.items;
 
     return <React.Fragment>
-      <Container fluid>
+      <Container>
         <Stack gap={5}>
           <DragDropContext onDragEnd={this.onDragEnd}>
               <Droppable droppableId="droppable">
@@ -139,7 +139,7 @@ class List extends Component {
                               provided.draggableProps.style
                             )}
                           >
-                            <Container>
+                            <Container fluid>
                               <Row>
                                 <Col xs={3}>
                                   <div className="embed-responsive embed-responsive-16by9">
