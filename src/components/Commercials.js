@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import './Commercials.css';
 import Container from "react-bootstrap/Container";
 import Stack from "react-bootstrap/Stack";
 

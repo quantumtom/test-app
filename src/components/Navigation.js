@@ -21,10 +21,8 @@ class Navigation extends Component {
       <Router>
         <NavBar />
           <Switch>
-            <Route path="/commercials">
-              <Container>
-                <Commercials />
-              </Container>
+            <Route path="/">
+              <Commercials />
             </Route>
             <Route path="/shorts">
               <Shorts />
