@@ -11,8 +11,8 @@ class NavBar extends Component {
         <Navbar.Collapse id="basic-navbar-nav">
           <Container>
             <Nav className="justify-content-center"
-              defaultActiveKey='/commercials'
-              onSelect={(selectedKey) => this.onSelect(selectedKey)}
+              // defaultActiveKey='/commercials'
+              // onSelect={(selectedKey) => this.onSelect(selectedKey)}
             >
               <Nav.Item>
                 <Nav.Link eventKey="commercials" className="text-uppercase" target="_top" href="/commercials">Commercials</Nav.Link>

@@ -28,10 +28,10 @@ const EditItem = (props) => {
   };
 
   return (
-    <Container>
+    <Container fluid>
       <Button as="input"
         type="button"
-        value="Edit Item"
+        value="Edit"
         onClick={handleShow} />
       <Modal
         show={show}

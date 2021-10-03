@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import Stack from "react-bootstrap/Stack";
 import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 
 import EditItem from "./EditItem";
 import {default as axios} from "axios";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 
 const SERVER_BASE = process.env.SERVER_BASE || 'http://localhost';
 const SERVER_PORT = process.env.SERVER_PORT || '8080';
@@ -132,18 +132,26 @@ class Reorderer extends Component {
                           provided.draggableProps.style
                         )}
                       >
-                        <Container fluid> <Row> <Col xs={3}>
-                          <div className="embed-responsive embed-responsive-16by9">
-                            <iframe
-                              title={`iframe-` + index}
-                              src={'https://player.vimeo.com/video/' + item.videoID}
-                              className="embed-responsive-item"
-                              frameBorder="0"
-                              allowFullScreen />
-                          </div>
-                        </Col> <Col xs={6}>
-                          <p>{item.title}<br /> {item.description}</p>
-                        </Col> <Col xs={3}> <EditItem itemIndex={index} items={items} /> </Col> </Row> </Container>
+                        <Container fluid>
+                          <Row>
+                            <Col xs={6}>
+                              <div className="embed-responsive embed-responsive-16by9">
+                                <iframe
+                                  title={`iframe-` + index}
+                                  src={'https://player.vimeo.com/video/' + item.videoID}
+                                  className="embed-responsive-item"
+                                  frameBorder="0"
+                                  allowFullScreen />
+                              </div>
+                            </Col>
+                            <Col xs={6}>
+                              <div>
+                                <p>{item.title}<br /> {item.description}</p>
+                                <EditItem itemIndex={index} items={items} />
+                              </div>
+                            </Col>
+                          </Row>
+                        </Container>
                       </div>
                     )}
                   </Draggable>

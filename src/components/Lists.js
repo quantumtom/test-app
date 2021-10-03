@@ -10,7 +10,7 @@ class Lists extends Component {
   // But in this example everything is just done in one place for simplicity
   render() {
     return <React.Fragment>
-      <Container>
+      <Container className="mt-3">
         <ListOfLists />
       </Container>
     </React.Fragment>
