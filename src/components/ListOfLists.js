@@ -12,7 +12,7 @@ function ListOfLists() {
       <h3 className="mt-3">List of Lists</h3>
       <p>Drag and drop items to change their position in the list.</p>
       <Tabs
-        id="controlled-tab-example"
+        id="controlled-tab-lol"
         activeKey={key}
         onSelect={(k) => setKey(k)}
         className="mt-3"

@@ -20,25 +20,29 @@ class Shorts extends Component {
     };
   }
 
-  getShorts() {
-    axios.get('/v1/shorts')
-      .then((response) => {
-        this.setState({
-          isLoaded: true,
-          items: response.data
-        });
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-      .then(() => {
-        // always executed
-      });
-  }
-
+  // TODO
+  // Swtich 'fetch' out and use axios.get instead.
+  // https://github.com/axios/axios
   componentDidMount() {
-    this.getShorts();
-  }
+    fetch('http://localhost:8080/v1/shorts/')
+      .then(res => res.json())
+      .then(result => {
+          // Made it here.
+          this.setState({
+            isLoaded: true,
+            items: result
+          });
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          this.setState({
+            error
+          });
+        }
+      ).catch(console.error);
+    }
 
   render() {
     const items = this.state.items;

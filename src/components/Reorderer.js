@@ -2,11 +2,11 @@ import React, { Component } from "react";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import Stack from "react-bootstrap/Stack";
 import Container from "react-bootstrap/Container";
-
-import EditItem from "./EditItem";
-import {default as axios} from "axios";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import {default as axios} from "axios";
+import EditItem from "./EditItem";
+import DeleteItem from "./DeleteItem";
 
 const SERVER_BASE = process.env.SERVER_BASE || 'http://localhost';
 const SERVER_PORT = process.env.SERVER_PORT || '8080';
@@ -60,19 +60,24 @@ class Reorderer extends Component {
   }
 
   getList(listType) {
-    axios.get(`/v1/${listType}`)
-      .then((response) => {
-        this.setState({
-          isLoaded: true,
-          items: response.data
-        });
-      })
-      .catch((error) => {
-        console.error(error);
-      })
-      .then(() => {
-        // always executed
-      });
+    fetch(`${axios.defaults.baseURL}/v1/work/`)
+      .then(res => res.json())
+      .then(result => {
+          // Made it here.
+          this.setState({
+            isLoaded: true,
+            items: result
+          });
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          this.setState({
+            error
+          });
+        }
+      ).catch(console.error);
   }
 
   sendList(listType, items) {
@@ -112,6 +117,7 @@ class Reorderer extends Component {
 
   render() {
     const items = this.state.items;
+    const listType = this.state.listType;
 
     return (
       <React.Fragment>
@@ -134,7 +140,7 @@ class Reorderer extends Component {
                       >
                         <Container fluid>
                           <Row>
-                            <Col xs={6}>
+                            <Col sm={4} xs={6}>
                               <div className="embed-responsive embed-responsive-16by9">
                                 <iframe
                                   title={`iframe-` + index}
@@ -144,11 +150,15 @@ class Reorderer extends Component {
                                   allowFullScreen />
                               </div>
                             </Col>
-                            <Col xs={6}>
+                            <Col sm={4} xs={4}>
                               <div>
-                                <p>{item.title}<br /> {item.description}</p>
-                                <EditItem itemIndex={index} items={items} />
+                                <h5>{item.title}</h5>
+                                <p>{item.description}</p>
                               </div>
+                            </Col>
+                            <Col sm={4} xs={2}>
+                              <EditItem listType={listType}  itemIndex={index} items={items} />
+                              <DeleteItem itemIndex={index} />
                             </Col>
                           </Row>
                         </Container>

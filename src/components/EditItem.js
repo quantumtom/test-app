@@ -1,19 +1,32 @@
 import React, { useState } from "react";
+// import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
 import ContentEditable from "react-contenteditable"
 
-
 const EditItem = (props) => {
-  const [show, setShow] = useState(false);
+  const [
+    show,     // Initial value (show = false)
+    setShow   // Updates the value for "show"
+  ] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
   const handleSave = (evt) => {
-    console.log(evt.currentTarget.innerHTML);
-    item[evt.currentTarget.dataset.valueType] = evt.currentTarget.innerHTML;
-    console.log(item[evt.currentTarget.dataset.valueType]);
+    console.dir(props);
+    // console.log(evt.currentTarget.innerHTML);
+    // item[evt.currentTarget.dataset.valueType] = evt.currentTarget.innerHTML;
+    // console.log(item[evt.currentTarget.dataset.valueType]);
+    handleClose();
+  };
+
+  const handleBlur = evt => {
+    console.log(`handleBlur: '${evt.target.innerHTML}'.`);
+  };
+
+  const handleChange = evt => {
+    console.log(`handleChange: '${evt.target.innerHTML}'.`);
+    console.dir(evt.target.innerHTML);
   };
 
   const items = props.items;
@@ -22,16 +35,12 @@ const EditItem = (props) => {
 
   const contentEditable = React.createRef();
 
-  const handleBlur = evt => {
-    console.log('handleBlur');
-    console.dir(evt);
-  };
-
   return (
-    <Container fluid>
+    <div className="mr-3">
       <Button as="input"
+        variant="light"
         type="button"
-        value="Edit"
+        value="EDIT"
         onClick={handleShow} />
       <Modal
         show={show}
@@ -47,6 +56,7 @@ const EditItem = (props) => {
           <ContentEditable
             html={item.title}
             innerRef={contentEditable}
+            onChange={handleChange}
             onBlur={handleBlur}
             tagName={'article'} // Use a custom HTML tag (uses a div by default)
             data-value-type='title'
@@ -54,6 +64,7 @@ const EditItem = (props) => {
           <ContentEditable
             html={item.description}
             innerRef={contentEditable}
+            onChange={handleChange}
             onBlur={handleBlur}
             tagName={'article'} // Use a custom HTML tag (uses a div by default)
             data-value-type='description'
@@ -61,6 +72,7 @@ const EditItem = (props) => {
           <ContentEditable
             html={item.videoID}
             innerRef={contentEditable}
+            onChange={handleChange}
             onBlur={handleBlur}
             tagName={'article'} // Use a custom HTML tag (uses a div by default)
             data-value-type='videoID'
@@ -68,11 +80,11 @@ const EditItem = (props) => {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>Close</Button>
-          <Button variant="primary" onClick={handleSave}>Save changes</Button>
+          <Button variant="secondary" onClick={handleClose}>Cancel</Button>
+          <Button variant="primary" onClick={handleSave}>Save</Button>
         </Modal.Footer>
       </Modal>
-    </Container>
+    </div>
   )
 }
 
