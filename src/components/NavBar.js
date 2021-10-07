@@ -3,10 +3,13 @@ import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
 
+// TODO: Implement active link
+//  (maybe with hooks?)
+
 class NavBar extends Component {
   render() {
     return (
-      <Navbar expand="sm" variant="light" bg="light">
+      <Navbar expand="sm" variant="light" bg="light" sticky="top" className="mb-3">
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Container>
@@ -28,6 +31,9 @@ class NavBar extends Component {
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link eventKey='contact' className="nav-link text-uppercase" target="_top" href="mailto:info@marcflennert.com">Contact</Nav.Link>
+              </Nav.Item>
+              <Nav.Item>
+                <Nav.Link eventKey='admin' className="nav-link text-uppercase" target="_top" href="/lists">Admin</Nav.Link>
               </Nav.Item>
             </Nav>
           </Container>

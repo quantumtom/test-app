@@ -19,12 +19,13 @@ const DeleteItem = (props) => {
     handleClose();
   };
 
-  return (
-    <div>
+  return <React.Fragment>
       <Button as="input"
-        variant="dark"
+        variant="danger"
         type="button"
-        value="REMOVE"
+        className="mr-3"
+        value="Delete"
+        size="sm"
         onClick={handleShow} />
       <Modal
         show={show}
@@ -45,8 +46,7 @@ const DeleteItem = (props) => {
           <Button variant="danger" onClick={handleDelete}>Delete</Button>
         </Modal.Footer>
       </Modal>
-    </div>
-  )
+    </React.Fragment>
 }
 
 export default DeleteItem;

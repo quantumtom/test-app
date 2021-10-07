@@ -1,6 +1,13 @@
 import React, { Component } from "react";
-import Container from "react-bootstrap/Container";
 import Stack from "react-bootstrap/Stack";
+import Player from "./Player";
+const axios = require('axios').default;
+
+const SERVER_BASE = process.env.SERVER_BASE || 'http://localhost';
+const SERVER_PORT = process.env.SERVER_PORT || '8080';
+
+axios.defaults.baseURL = SERVER_BASE + ":" + SERVER_PORT;
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 class Commercials extends Component {
   constructor(props) {
@@ -16,7 +23,7 @@ class Commercials extends Component {
   // Swtich 'fetch' out and use axios.get instead.
   // https://github.com/axios/axios
   componentDidMount() {
-    fetch('http://localhost:8080/v1/work')
+    fetch(axios.defaults.baseURL + '/v1/work/')
       .then(res => res.json())
       .then(result => {
           // Made it here.
@@ -40,27 +47,16 @@ class Commercials extends Component {
     const items = this.state.items;
 
     return <React.Fragment>
-      <Container>
         <Stack gap={5}>
           {items.map((item, index) => (
-            <Container key={item.title + `-` + index}>
-              <div className="poster">
-                <div className="embed-responsive embed-responsive-16by9">
-                  <iframe
-                    title={`iframe-` + index}
-                    src={'https://player.vimeo.com/video/' + item.videoID}
-                    className="embed-responsive-item"
-                    frameBorder="0"
-                    allowFullScreen />
-                </div>
-              </div>
-              <div>
-                <p className="video-title mt-3 mb-5">{item.title} - <em>{item.description}</em></p>
-              </div>
-            </Container>
+            <Player
+              key={item.title + `-` + index}
+              videoID={item.videoID}
+              title={item.title}
+              description={item.description}
+            />
           ))}
         </Stack>
-      </Container>
     </React.Fragment>
   }
 }

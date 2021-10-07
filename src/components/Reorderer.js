@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
-import Stack from "react-bootstrap/Stack";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -23,7 +22,7 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
-const grid = 8;
+const grid = 4;
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
@@ -60,7 +59,7 @@ class Reorderer extends Component {
   }
 
   getList(listType) {
-    fetch(`${axios.defaults.baseURL}/v1/work/`)
+    fetch(`${axios.defaults.baseURL}/v1/${listType}/`)
       .then(res => res.json())
       .then(result => {
           // Made it here.
@@ -121,7 +120,7 @@ class Reorderer extends Component {
 
     return (
       <React.Fragment>
-        <Stack gap={5}> <DragDropContext onDragEnd={this.onDragEnd}>
+        <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId="droppable">
             {(provided, snapshot) => (
               <div{...provided.droppableProps}
@@ -138,27 +137,20 @@ class Reorderer extends Component {
                           provided.draggableProps.style
                         )}
                       >
-                        <Container fluid>
+                        <Container>
                           <Row>
-                            <Col sm={4} xs={6}>
-                              <div className="embed-responsive embed-responsive-16by9">
-                                <iframe
-                                  title={`iframe-` + index}
-                                  src={'https://player.vimeo.com/video/' + item.videoID}
-                                  className="embed-responsive-item"
-                                  frameBorder="0"
-                                  allowFullScreen />
-                              </div>
-                            </Col>
-                            <Col sm={4} xs={4}>
+                            <Col xs={8}>
                               <div>
                                 <h5>{item.title}</h5>
                                 <p>{item.description}</p>
                               </div>
                             </Col>
-                            <Col sm={4} xs={2}>
-                              <EditItem listType={listType}  itemIndex={index} items={items} />
-                              <DeleteItem itemIndex={index} />
+                            <Col xs={4}>
+                              <div className="float-right">
+
+                                <EditItem listType={listType}  itemIndex={index} items={items} />
+                                <DeleteItem itemIndex={index} />
+                              </div>
                             </Col>
                           </Row>
                         </Container>
@@ -170,7 +162,6 @@ class Reorderer extends Component {
             )}
           </Droppable>
         </DragDropContext>
-        </Stack>
       </React.Fragment>
     );
   }

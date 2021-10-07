@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
+import Container from "react-bootstrap/Container";
 import './Navigation.css';
 
 import {
@@ -9,10 +10,11 @@ import {
 } from "react-router-dom";
 
 import NavBar from './NavBar';
-import About from './About';
-import Commercials from './Commercials';
-import Shorts from './Shorts';
-import Lists from './Lists';
+
+const Commercials = React.lazy(() => import("./Commercials"));
+const Shorts = React.lazy(() => import("./Shorts"));
+const Lists = React.lazy(() => import("./Lists"));
+const About = React.lazy(() => import("./About"));
 
 class Navigation extends Component {
   render() {
@@ -24,16 +26,30 @@ class Navigation extends Component {
             <Redirect to="/commercials" />
           </Route>
           <Route path="/commercials">
-            <Commercials />
+            <Container fluid>
+              <Suspense fallback={<div>Loading...</div>}>
+                <Commercials />
+              </Suspense>
+            </Container>
           </Route>
           <Route path="/shorts">
-            <Shorts />
+            <Container fluid>
+              <Suspense fallback={<div>Loading...</div>}>
+                <Shorts />
+              </Suspense>
+            </Container>
           </Route>
           <Route path="/about">
-            <About />
+            <Container fluid>
+              <Suspense fallback={<div>Loading...</div>}>
+                <About />
+              </Suspense>
+            </Container>
           </Route>
           <Route path="/lists">
-            <Lists />
+            <Suspense fallback={<div>Loading...</div>}>
+              <Lists />
+            </Suspense>
           </Route>
         </Switch>
       </Router>

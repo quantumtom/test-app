@@ -35,57 +35,58 @@ const EditItem = (props) => {
 
   const contentEditable = React.createRef();
 
-  return (
-    <div className="mr-3">
-      <Button as="input"
-        variant="light"
-        type="button"
-        value="EDIT"
-        onClick={handleShow} />
-      <Modal
-        show={show}
-        onHide={handleClose}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title>Edit Record</Modal.Title>
-        </Modal.Header>
+  return <React.Fragment>
+    <Button as="input"
+      variant="success"
+      type="button"
+      className="mr-3"
+      value="Edit" size="sm"
+      onClick={handleShow}>
+    </Button>
 
-        <Modal.Body>
-          <ContentEditable
-            html={item.title}
-            innerRef={contentEditable}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            tagName={'article'} // Use a custom HTML tag (uses a div by default)
-            data-value-type='title'
-          />
-          <ContentEditable
-            html={item.description}
-            innerRef={contentEditable}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            tagName={'article'} // Use a custom HTML tag (uses a div by default)
-            data-value-type='description'
-          />
-          <ContentEditable
-            html={item.videoID}
-            innerRef={contentEditable}
-            onChange={handleChange}
-            onBlur={handleBlur}
-            tagName={'article'} // Use a custom HTML tag (uses a div by default)
-            data-value-type='videoID'
-          />
-        </Modal.Body>
+    <Modal
+      show={show}
+      onHide={handleClose}
+      backdrop="static"
+      keyboard={false}
+    >
+      <Modal.Header closeButton>
+        <Modal.Title>Edit Record</Modal.Title>
+      </Modal.Header>
 
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>Cancel</Button>
-          <Button variant="primary" onClick={handleSave}>Save</Button>
-        </Modal.Footer>
-      </Modal>
-    </div>
-  )
-}
+      <Modal.Body>
+        <ContentEditable
+          html={item.title}
+          innerRef={contentEditable}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          tagName={'article'} // Use a custom HTML tag (uses a div by default)
+          data-value-type='title'
+        />
+        <ContentEditable
+          html={item.description}
+          innerRef={contentEditable}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          tagName={'article'} // Use a custom HTML tag (uses a div by default)
+          data-value-type='description'
+        />
+        <ContentEditable
+          html={item.videoID}
+          innerRef={contentEditable}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          tagName={'article'} // Use a custom HTML tag (uses a div by default)
+          data-value-type='videoID'
+        />
+      </Modal.Body>
+
+      <Modal.Footer>
+        <Button variant="secondary" onClick={handleClose}>Cancel</Button>
+        <Button variant="primary" onClick={handleSave}>Save</Button>
+      </Modal.Footer>
+    </Modal>
+  </React.Fragment>
+};
 
 export default EditItem;
