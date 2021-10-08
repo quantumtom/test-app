@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Container from "react-bootstrap/Container";
-import ReactPlayer from "react-player/lazy"
+import ReactPlayer from "react-player/vimeo"
 import Film from "../film.gif";
 
 class Player extends Component {
@@ -24,8 +24,10 @@ class Player extends Component {
         <div className="embed-responsive embed-responsive-16by9">
           <ReactPlayer
             url={url}
+            controls={true}
+            loop={false}
             className="embed-responsive-item"
-            allow="autoplay; fullscreen"
+            allow="fullscreen"
             height="100%"
             width="100%"
             fallback={<img src={Film} alt="Loading" />}
