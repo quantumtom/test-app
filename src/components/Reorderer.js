@@ -148,7 +148,7 @@ class Reorderer extends Component {
                             <Col xs={4}>
                               <div className="float-right">
 
-                                <EditItem listType={listType}  itemIndex={index} items={items} />
+                                <EditItem listType={listType} itemIndex={index} items={items} />
                                 <DeleteItem itemIndex={index} />
                               </div>
                             </Col>
