@@ -47,9 +47,11 @@ class Navigation extends Component {
             </Container>
           </Route>
           <Route path="/lists">
-            <Suspense fallback={<div>Loading...</div>}>
-              <Lists />
-            </Suspense>
+            <Container fluid>
+              <Suspense fallback={<div>Loading...</div>}>
+                <Lists />
+              </Suspense>
+            </Container>
           </Route>
         </Switch>
       </Router>
