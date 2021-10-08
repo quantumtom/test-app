@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import ListOfLists from "./ListOfLists";
 import Container from "react-bootstrap/Container";
-import "./List.css";
 
 class Lists extends Component {
 
