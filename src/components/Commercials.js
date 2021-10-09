@@ -6,6 +6,8 @@ const axios = require('axios').default;
 const SERVER_BASE = process.env.SERVER_BASE || 'http://localhost';
 const SERVER_PORT = process.env.SERVER_PORT || '8080';
 
+console.log(`process.env.SERVER_BASE is '${process.env.SERVER_BASE}'.`);
+
 axios.defaults.baseURL = SERVER_BASE + ":" + SERVER_PORT;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
