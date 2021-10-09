@@ -2,11 +2,18 @@ import React, { Component } from "react";
 import Stack from "react-bootstrap/Stack";
 import Player from "./Player";
 const axios = require('axios').default;
+const OS = require('os');
 
-const SERVER_BASE = process.env.SERVER_BASE || 'http://localhost';
+let SERVER_BASE = 'http://localhost';
+
+if (OS.hostname() !== 'localhost') {
+  SERVER_BASE = 'https://whispering-sea-28461.herokuapp.com';
+}
+
 const SERVER_PORT = process.env.SERVER_PORT || '8080';
 
-console.log(`process.env.SERVER_BASE is '${process.env.SERVER_BASE}'.`);
+console.log(`os.hostname() is '${OS.hostname()}'.`);
+console.log(`SERVER_BASE is '${SERVER_BASE}'.`);
 
 axios.defaults.baseURL = SERVER_BASE + ":" + SERVER_PORT;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
