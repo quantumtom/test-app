@@ -1,22 +1,13 @@
 import React, { Component } from "react";
 import Stack from "react-bootstrap/Stack";
 import Player from "./Player";
+
 const axios = require('axios').default;
-const OS = require('os');
-
-let SERVER_BASE = 'http://localhost';
-
-if (OS.hostname() !== 'localhost') {
-  SERVER_BASE = 'https://whispering-sea-28461.herokuapp.com';
-}
-
+const SERVER_BASE = process.env.SERVER_BASE || 'http://localhost'
 const SERVER_PORT = process.env.SERVER_PORT || '8080';
 
-console.log(`os.hostname() is '${OS.hostname()}'.`);
-console.log(`SERVER_BASE is '${SERVER_BASE}'.`);
-
 axios.defaults.baseURL = SERVER_BASE + ":" + SERVER_PORT;
-axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
 
 class Commercials extends Component {
   constructor(props) {
@@ -38,7 +29,7 @@ class Commercials extends Component {
           // Made it here.
           this.setState({
             isLoaded: true,
-            items: result
+            items: JSON.parse(result).data
           });
         },
         // Note: it's important to handle errors here

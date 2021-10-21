@@ -3,12 +3,11 @@ import Stack from "react-bootstrap/Stack";
 import Player from "./Player";
 
 const axios = require('axios').default;
-
 const SERVER_BASE = process.env.SERVER_BASE || 'http://localhost';
 const SERVER_PORT = process.env.SERVER_PORT || '8080';
 
 axios.defaults.baseURL = SERVER_BASE + ":" + SERVER_PORT;
-axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
 
 class Shorts extends Component {
   constructor(props) {
@@ -30,7 +29,7 @@ class Shorts extends Component {
           // Made it here.
           this.setState({
             isLoaded: true,
-            items: result
+            items: JSON.parse(result).data
           });
         },
         // Note: it's important to handle errors here

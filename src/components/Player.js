@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Container from "react-bootstrap/Container";
-import ReactPlayer from "react-player/vimeo"
+import ReactPlayer from "react-player/lazy"
 import Film from "../film.gif";
 
 class Player extends Component {

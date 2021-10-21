@@ -6,6 +6,7 @@ import Col from "react-bootstrap/Col";
 import {default as axios} from "axios";
 import EditItem from "./EditItem";
 import DeleteItem from "./DeleteItem";
+import "./Reorderer.css";
 
 const SERVER_BASE = process.env.SERVER_BASE || 'http://localhost';
 const SERVER_PORT = process.env.SERVER_PORT || '8080';
@@ -65,7 +66,7 @@ class Reorderer extends Component {
           // Made it here.
           this.setState({
             isLoaded: true,
-            items: result
+            items: JSON.parse(result).data
           });
         },
         // Note: it's important to handle errors here
@@ -81,17 +82,21 @@ class Reorderer extends Component {
 
   sendList(listType, items) {
     axios.post(`/v1/${listType}/create`,
-      items,
+      {
+        "data": items
+      },
       {
         headers: {
+          "content-type": "application/json; charset=utf-8",
           "Access-Control-Allow-Origin": "*",
           "Vary": "Origin"
-        }})
+        }
+      })
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
       })
       .catch(function (error) {
-        console.log(error);
+        console.error(error);
       });
   }
 
@@ -106,6 +111,8 @@ class Reorderer extends Component {
       result.source.index,
       result.destination.index
     );
+
+    // console.log(items);
 
     this.sendList(this.state.listType, items);
 
@@ -141,15 +148,22 @@ class Reorderer extends Component {
                           <Row>
                             <Col xs={8}>
                               <div>
-                                <h5>{item.title}</h5>
-                                <p>{item.description}</p>
+                                <div className="item-text item-title">
+                                  {item.title}
+                                </div>
+                                <div className="item-text item-description">
+                                  {item.description}
+                                </div>
                               </div>
                             </Col>
                             <Col xs={4}>
                               <div className="float-right">
-
-                                <EditItem listType={listType} itemIndex={index} items={items} />
-                                <DeleteItem itemIndex={index} />
+                                <EditItem
+                                  listType={listType}
+                                  itemIndex={index}
+                                  items={items} />
+                                <DeleteItem
+                                  itemIndex={index} />
                               </div>
                             </Col>
                           </Row>

@@ -9,14 +9,12 @@ const EditItem = (props) => {
     show,     // Initial value (show = false)
     setShow   // Updates the value for "show"
   ] = useState(false);
+
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
   const handleSave = (evt) => {
-    console.dir(props);
-    // console.log(evt.currentTarget.innerHTML);
-    // item[evt.currentTarget.dataset.valueType] = evt.currentTarget.innerHTML;
-    // console.log(item[evt.currentTarget.dataset.valueType]);
+    console.log(`handleSave: '${evt.currentTarget.innerHTML}'.`);
     handleClose();
   };
 
