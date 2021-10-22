@@ -1,13 +1,19 @@
 import React, { Component } from "react";
 import Stack from "react-bootstrap/Stack";
 import Player from "./Player";
-
 const axios = require('axios').default;
-const SERVER_BASE = "https://whispering-sea-28461.herokuapp.com";
-const SERVER_PORT = "80";
 
-axios.defaults.baseURL = SERVER_BASE + ":" + SERVER_PORT;
-axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
+const API_BASE = process.env.REACT_APP_API_BASE;
+const API_PORT = process.env.REACT_APP_API_PORT;
+
+console.log(process.env.REACT_APP_API_BASE, process.env.REACT_APP_API_PORT);
+
+const xportr = axios.create();
+
+xportr.defaults.baseURL = API_BASE + ":" + API_PORT;
+xportr.defaults.headers.common = {};
+xportr.defaults.headers.common.accept = 'application/json';
+xportr.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
 
 class Commercials extends Component {
   constructor(props) {
@@ -19,11 +25,13 @@ class Commercials extends Component {
     };
   };
 
+
+
   // TODO
   // Swtich 'fetch' out and use axios.get instead.
   // https://github.com/axios/axios
   componentDidMount() {
-    fetch(axios.defaults.baseURL + '/v1/work/')
+    fetch(xportr.defaults.baseURL + '/v1/work/')
       .then(res => res.json())
       .then(result => {
           // Made it here.
