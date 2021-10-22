@@ -2,7 +2,10 @@
   "name": "die-aggravator",
   "version": "0.11.0",
   "private": true,
+  "license": "NO LICENSE",
+  "author": "quantumtom",
   "homepage": ".",
+  "proxy": "https://whispering-sea-28461.herokuapp.com",
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
