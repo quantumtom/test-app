@@ -3,8 +3,8 @@ import Stack from "react-bootstrap/Stack";
 import Player from "./Player";
 
 const axios = require('axios').default;
-const SERVER_BASE = process.env.SERVER_BASE || 'http://localhost'
-const SERVER_PORT = process.env.SERVER_PORT || '8080';
+const SERVER_BASE = "https://whispering-sea-28461.herokuapp.com";
+const SERVER_PORT = "80";
 
 axios.defaults.baseURL = SERVER_BASE + ":" + SERVER_PORT;
 axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
