@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Container from "react-bootstrap/Container";
-import ReactPlayer from "react-player/lazy"
-import Film from "../film.gif";
+import ReactPlayer from "react-player/vimeo";
+import "./Player.css";
 
 class Player extends Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class Player extends Component {
 
     return <React.Fragment>
       <Container>
-        <div className="embed-responsive embed-responsive-16by9">
+        <div className="embed-responsive embed-responsive-16by9 poster-placeholder">
           <ReactPlayer
             url={url}
             controls={true}
@@ -30,11 +30,13 @@ class Player extends Component {
             allow="fullscreen"
             height="100%"
             width="100%"
-            fallback={<img src={Film} alt="Loading" />}
+            fallback={<div>Loading...</div>}
             />
         </div>
-        <div className="video-title">
-          <p>{title} - <em>{description}</em></p>
+        <div className="video-title mt-2 mb-5">
+          <p><b>{title}</b><br/>
+            <em>{description}</em>
+          </p>
         </div>
       </Container>
     </React.Fragment>

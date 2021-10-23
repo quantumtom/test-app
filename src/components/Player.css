@@ -1,0 +1,15 @@
+.fallback {
+    color: white;
+    font-size: calc(5px + 3vmin);
+}
+
+.video-title {
+    color: #000;
+    font-family: 'Courier New', serif;
+    font-size: calc(8px + 1vmin);
+    /*font-weight: bold;*/
+}
+
+.poster-placeholder {
+    border: black solid 1px;
+}
