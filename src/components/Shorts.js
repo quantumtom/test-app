@@ -4,12 +4,9 @@ import Player from "./Player";
 const axios = require('axios').default;
 
 const API_BASE = process.env.REACT_APP_API_BASE;
-const API_PORT = process.env.REACT_APP_API_PORT;
 
-console.log(process.env.REACT_APP_API_BASE, process.env.REACT_APP_API_PORT);
-
-axios.defaults.baseURL = API_BASE + ":" + API_PORT;
-axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
+axios.defaults.baseURL = API_BASE;
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 class Shorts extends Component {
   constructor(props) {

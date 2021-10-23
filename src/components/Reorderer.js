@@ -8,10 +8,9 @@ import EditItem from "./EditItem";
 import DeleteItem from "./DeleteItem";
 import "./Reorderer.css";
 
-const SERVER_BASE = process.env.SERVER_BASE || 'http://localhost';
-const SERVER_PORT = process.env.SERVER_PORT || '8080';
+const API_BASE = process.env.REACT_APP_API_BASE;
 
-axios.defaults.baseURL = SERVER_BASE + ":" + SERVER_PORT;
+axios.defaults.baseURL = API_BASE;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 // a little function to help us with reordering the result

@@ -3,12 +3,9 @@ import Stack from "react-bootstrap/Stack";
 import Player from "./Player";
 const axios = require('axios').default;
 
-const SERVER_BASE = process.env.SERVER_BASE || 'http://localhost';
-const SERVER_PORT = process.env.SERVER_PORT || '8080';
+const API_BASE = process.env.REACT_APP_API_BASE;
 
-console.log(process.env.SERVER_BASE, process.env.SERVER_PORT);
-
-axios.defaults.baseURL = SERVER_BASE + ":" + SERVER_PORT;
+axios.defaults.baseURL = API_BASE;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 class Commercials extends Component {
@@ -26,7 +23,7 @@ class Commercials extends Component {
   }
 
   getList() {
-    fetch(`${axios.defaults.baseURL}/v1/work/`)
+    fetch(`${axios.defaults.baseURL}/v1/work/`, {mode: 'cors'})
       .then(res => res.json())
       .then(result => {
           // Made it here.
