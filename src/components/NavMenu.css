@@ -1,11 +1,9 @@
 .nav-link, .nav-link:visited {
-    color: #000;
     text-decoration: none;
 }
 
 .nav-link:active {
     color: #666;
-    text-decoration: underline;
 }
 
 .custom-toggler .navbar-toggler-icon {
