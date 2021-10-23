@@ -33,10 +33,11 @@ class Player extends Component {
             fallback={<div>Loading...</div>}
             />
         </div>
-        <div className="video-title mt-2 mb-5">
-          <p><b>{title}</b><br/>
+        <div className="video-caption mt-2 mb-5">
+          <span className="video-title">{title}</span><br/>
+          <span className="video-description">
             <em>{description}</em>
-          </p>
+          </span>
         </div>
       </Container>
     </React.Fragment>

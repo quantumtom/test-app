@@ -3,11 +3,18 @@
     font-size: calc(5px + 3vmin);
 }
 
-.video-title {
+.video-caption {
     color: #000;
     font-family: 'Courier New', serif;
-    font-size: calc(8px + 1vmin);
-    /*font-weight: bold;*/
+}
+
+.video-title {
+    font-weight: bold;
+    font-size: calc(15px + 1vmin);
+}
+
+.video-description {
+    font-size: calc(12px + 1vmin);
 }
 
 .poster-placeholder {
