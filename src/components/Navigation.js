@@ -1,6 +1,6 @@
 import React, { Component, Suspense } from "react";
 import Container from "react-bootstrap/Container";
-import './Navigation.css';
+import './NavMenu.css';
 
 import {
   BrowserRouter as Router,
@@ -9,7 +9,7 @@ import {
   Redirect
 } from "react-router-dom";
 
-import NavBar from './NavBar';
+import NavMenu from './NavMenu';
 
 const Commercials = React.lazy(() => import("./Commercials"));
 const Shorts = React.lazy(() => import("./Shorts"));
@@ -20,35 +20,35 @@ class Navigation extends Component {
   render() {
     return (
       <Router>
-        <NavBar />
+        <NavMenu />
         <Switch>
           <Route exact path="/">
             <Redirect to="/commercials" />
           </Route>
           <Route path="/commercials">
             <Container fluid>
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<div>Loading Commercials...</div>}>
                 <Commercials />
               </Suspense>
             </Container>
           </Route>
           <Route path="/shorts">
             <Container fluid>
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<div>Loading Shorts...</div>}>
                 <Shorts />
               </Suspense>
             </Container>
           </Route>
           <Route path="/about">
             <Container fluid>
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<div>Loading About...</div>}>
                 <About />
               </Suspense>
             </Container>
           </Route>
           <Route path="/lists">
             <Container fluid>
-              <Suspense fallback={<div>Loading...</div>}>
+              <Suspense fallback={<div>Loading Lists...</div>}>
                 <Lists />
               </Suspense>
             </Container>
