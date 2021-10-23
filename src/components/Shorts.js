@@ -8,12 +8,8 @@ const API_PORT = process.env.REACT_APP_API_PORT;
 
 console.log(process.env.REACT_APP_API_BASE, process.env.REACT_APP_API_PORT);
 
-const xportr = axios.create();
-
-xportr.defaults.baseURL = API_BASE + ":" + API_PORT;
-xportr.defaults.headers.common = {};
-xportr.defaults.headers.common.accept = 'application/json';
-xportr.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
+axios.defaults.baseURL = API_BASE + ":" + API_PORT;
+axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
 
 class Shorts extends Component {
   constructor(props) {
@@ -25,11 +21,8 @@ class Shorts extends Component {
     };
   }
 
-  // TODO
-  // Swtich 'fetch' out and use axios.get instead.
-  // https://github.com/axios/axios
   componentDidMount() {
-    fetch(xportr.defaults.baseURL + '/v1/shorts/')
+    fetch(`${axios.defaults.baseURL}/v1/shorts/`)
       .then(res => res.json())
       .then(result => {
           // Made it here.
