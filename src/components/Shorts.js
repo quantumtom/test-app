@@ -1,12 +1,6 @@
 import React, { Component } from "react";
 import Stack from "react-bootstrap/Stack";
 import Player from "./Player";
-const axios = require('axios').default;
-
-const API_BASE = process.env.REACT_APP_API_BASE;
-
-axios.defaults.baseURL = API_BASE;
-axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 class Shorts extends Component {
   constructor(props) {
@@ -23,7 +17,7 @@ class Shorts extends Component {
   }
 
   getList() {
-    fetch(`${axios.defaults.baseURL}/v1/shorts/`)
+    fetch(`${window.API_BASE}/v1/shorts/`)
       .then(res => res.json())
       .then(result => {
           // Made it here.

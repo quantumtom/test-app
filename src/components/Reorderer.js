@@ -8,9 +8,7 @@ import EditItem from "./EditItem";
 import DeleteItem from "./DeleteItem";
 import "./Reorderer.css";
 
-const API_BASE = process.env.REACT_APP_API_BASE;
-
-axios.defaults.baseURL = API_BASE;
+axios.defaults.baseURL = window.API_BASE;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 // a little function to help us with reordering the result
@@ -59,7 +57,7 @@ class Reorderer extends Component {
   }
 
   getList(listType) {
-    fetch(`${axios.defaults.baseURL}/v1/${listType}/`)
+    fetch(`${window.API_BASE}/v1/${listType}/`)
       .then(res => res.json())
       .then(result => {
           // Made it here.
