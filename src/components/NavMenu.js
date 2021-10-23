@@ -7,34 +7,36 @@ import "./NavMenu.css";
 // TODO: Implement active link
 //  (maybe with hooks?)
 
-class NavBar extends Component {
+class NavMenu extends Component {
   render() {
+    const handleSelect = (eventKey) => alert(`selected ${eventKey}`);
+
     return (
       <Navbar expand="sm" variant="light" bg="light" sticky="top" className="mb-3">
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Container>
             <Nav className="justify-content-center"
-              // defaultActiveKey='/commercials'
-              // onSelect={(selectedKey) => this.onSelect(selectedKey)}
+              activeKey="link-1"
+              onSelect={handleSelect}
             >
               <Nav.Item>
-                <Nav.Link eventKey="commercials" className="text-uppercase" target="_top" href="/commercials">Commercials</Nav.Link>
+                <Nav.Link href="/commercials" eventKey="link-1" className="text-uppercase">Commercials</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="shorts" className="text-uppercase" target="_top" href="/shorts">Shorts</Nav.Link>
+                <Nav.Link href="/shorts" eventKey="link-2" className="text-uppercase">Shorts</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey='photography' className="nav-link text-uppercase" target="_blank" href="https://photo.marcflennert.com" rel="noopener">Photography</Nav.Link>
+                <Nav.Link href="https://photo.marcflennert.com" eventKey='link-3' className="nav-link text-uppercase" target="_blank" rel="noopener">Photography</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey="about" className="text-uppercase" target="_top" href="/about">About</Nav.Link>
+                <Nav.Link href="/about" eventKey="link-4" className="text-uppercase">About</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey='contact' className="nav-link text-uppercase" target="_top" href="mailto:info@marcflennert.com">Contact</Nav.Link>
+                <Nav.Link href="mailto:info@marcflennert.com" eventKey='link-4' className="nav-link text-uppercase">Contact</Nav.Link>
               </Nav.Item>
               <Nav.Item>
-                <Nav.Link eventKey='admin' className="nav-link text-uppercase" target="_top" href="/lists">Admin</Nav.Link>
+                <Nav.Link href="/lists" eventKey='link-5' className="nav-link text-uppercase">Admin</Nav.Link>
               </Nav.Item>
             </Nav>
           </Container>
@@ -43,4 +45,4 @@ class NavBar extends Component {
     )}
 }
 
-export default NavBar;
+export default NavMenu;
