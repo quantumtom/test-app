@@ -22,7 +22,10 @@ class Commercials extends Component {
   };
 
   componentDidMount() {
+    this.getList();
+  }
 
+  getList() {
     fetch(`${axios.defaults.baseURL}/v1/work/`)
       .then(res => res.json())
       .then(result => {

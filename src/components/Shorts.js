@@ -22,6 +22,10 @@ class Shorts extends Component {
   }
 
   componentDidMount() {
+    this.getList();
+  }
+
+  getList() {
     fetch(`${axios.defaults.baseURL}/v1/shorts/`)
       .then(res => res.json())
       .then(result => {
