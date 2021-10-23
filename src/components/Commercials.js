@@ -3,13 +3,13 @@ import Stack from "react-bootstrap/Stack";
 import Player from "./Player";
 const axios = require('axios').default;
 
-const API_BASE = process.env.REACT_APP_API_BASE;
-const API_PORT = process.env.REACT_APP_API_PORT;
+const SERVER_BASE = process.env.SERVER_BASE || 'http://localhost';
+const SERVER_PORT = process.env.SERVER_PORT || '8080';
 
-console.log(process.env.REACT_APP_API_BASE, process.env.REACT_APP_API_PORT);
+console.log(process.env.SERVER_BASE, process.env.SERVER_PORT);
 
-axios.defaults.baseURL = API_BASE + ":" + API_PORT;
-axios.defaults.headers.post['Content-Type'] = 'application/json; charset=utf-8';
+axios.defaults.baseURL = SERVER_BASE + ":" + SERVER_PORT;
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 class Commercials extends Component {
   constructor(props) {
