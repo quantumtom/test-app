@@ -16,6 +16,7 @@ class NavMenu extends Component {
           <Container>
             <Nav className="justify-content-center"
               activeKey={window.location.pathname}
+              defaultActiveKey="/commercials"
             >
               <Nav.Item>
                 <Nav.Link href="/commercials" className="text-uppercase">Commercials</Nav.Link>
