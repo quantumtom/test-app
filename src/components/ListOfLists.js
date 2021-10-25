@@ -21,7 +21,7 @@ function ListOfLists() {
           eventKey="commercials"
           title="Commercials"
         >
-          <Reorderer listType="work" />
+          <Reorderer listType="adverts" />
         </Tab>
         <Tab
           eventKey="shorts"

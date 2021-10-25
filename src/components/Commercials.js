@@ -17,7 +17,7 @@ class Commercials extends Component {
   }
 
   getList() {
-    fetch(`${window.API_BASE}/v1/work/`, {mode: 'cors'})
+    fetch(`${window.API_BASE}/v1/adverts/`, {mode: 'cors'})
       .then(res => res.json())
       .then(result => {
           // Made it here.
