@@ -35,7 +35,8 @@
     "eject": "react-scripts eject",
     "serve": "serve -s build",
     "build:staging": "env-cmd -f .env.staging react-scripts build",
-    "build:production": "env-cmd -f .env.production react-scripts build"
+    "build:production": "env-cmd -f .env.production react-scripts build",
+    "heroku-postbuild": "echo Skip build on Heroku"
   },
   "eslintConfig": {
     "extends": [
@@ -54,5 +55,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "heroku-run-build-script": true
 }
