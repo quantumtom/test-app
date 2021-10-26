@@ -6,6 +6,7 @@
 .video-caption {
     color: #000;
     font-family: 'Courier New', serif;
+    line-height: calc(15px + 1vmin);
 }
 
 .video-title {
