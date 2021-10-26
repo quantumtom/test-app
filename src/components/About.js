@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import Container from "react-bootstrap/Container";
 import Figure from "react-bootstrap/Figure";
 import portraitSmall from "../portrait-small.jpg";
 import portraitMedium from "../portrait-medium.jpg";
