@@ -1,11 +1,9 @@
 import React, { Component } from "react";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
-import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import {default as axios} from "axios";
 import EditItem from "./EditItem";
-import DeleteItem from "./DeleteItem";
 import "./Reorderer.css";
 
 axios.defaults.baseURL = window.API_BASE;
@@ -141,30 +139,26 @@ class Reorderer extends Component {
                           provided.draggableProps.style
                         )}
                       >
-                        <Container>
-                          <Row>
-                            <Col xs={8}>
-                              <div>
-                                <div className="item-text item-title">
-                                  {item.title}
-                                </div>
-                                <div className="item-text item-description">
-                                  {item.description}
-                                </div>
+                        <Row>
+                          <Col xs={10}>
+                            <div>
+                              <div className="item-text item-title">
+                                {item.title}
                               </div>
-                            </Col>
-                            <Col xs={4}>
-                              <div className="float-right">
-                                <EditItem
-                                  listType={listType}
-                                  itemIndex={index}
-                                  items={items} />
-                                <DeleteItem
-                                  itemIndex={index} />
+                              <div className="item-text item-description">
+                                {item.description}
                               </div>
-                            </Col>
-                          </Row>
-                        </Container>
+                            </div>
+                          </Col>
+                          <Col xs={2}>
+                            <div className="float-right">
+                              <EditItem
+                                listType={listType}
+                                itemIndex={index}
+                                items={items} />
+                            </div>
+                          </Col>
+                        </Row>
                       </div>
                     )}
                   </Draggable>

@@ -1,18 +1,35 @@
-import React, { Component } from "react";
-import ListOfLists from "./ListOfLists";
-import Container from "react-bootstrap/Container";
+import React, { useState } from "react";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
+import Reorderer from "./Reorderer";
 
-class Lists extends Component {
+function Lists() {
+  const [key, setKey] = useState('commercials');
 
-  // Normally you would want to split things out into separate components.
-  // But in this example everything is just done in one place for simplicity
-  render() {
-    return <React.Fragment>
-      <Container className="mt-3">
-        <ListOfLists />
-      </Container>
+  return (
+    <React.Fragment>
+      <h3>Lists</h3>
+      <p>Drag and drop items to change their position in the list.</p>
+      <Tabs
+        id="controlled-tab-lol"
+        activeKey={key}
+        onSelect={(k) => setKey(k)}
+        className="mt-3"
+      >
+        <Tab
+          eventKey="commercials"
+          title="Commercials"
+        >
+          <Reorderer listType="adverts" />
+        </Tab>
+        <Tab
+          eventKey="shorts"
+          title="Shorts">
+          <Reorderer listType="shorts" />
+        </Tab>
+      </Tabs>
     </React.Fragment>
-  }
+  );
 }
 
 export default Lists;

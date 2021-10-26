@@ -10,7 +10,7 @@ import "./NavMenu.css";
 class NavMenu extends Component {
   render() {
     return (
-      <Navbar expand="sm" variant="light" bg="light" sticky="top" className="mb-3">
+      <Navbar expand="sm" variant="light" bg="light" sticky="top" className="mb-2">
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Container>

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import ContentEditable from "react-contenteditable"
+import DeleteItem from "./DeleteItem";
 
 const EditItem = (props) => {
   const [
@@ -34,13 +35,13 @@ const EditItem = (props) => {
   const contentEditable = React.createRef();
 
   return <React.Fragment>
-    <Button as="input"
-      variant="success"
-      type="button"
-      className="mr-3"
-      value="Edit" size="sm"
-      onClick={handleShow}>
-    </Button>
+      <Button as="input"
+        variant="primary"
+        type="button"
+        className="mr-3"
+        value="Edit" size="sm"
+        onClick={handleShow}>
+      </Button>
 
     <Modal
       show={show}
@@ -81,7 +82,9 @@ const EditItem = (props) => {
 
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>Cancel</Button>
-        <Button variant="primary" onClick={handleSave}>Save</Button>
+        <Button variant="primary" onClick={handleSave}>Save Changes</Button>
+        <DeleteItem
+          itemIndex={itemIndex} />
       </Modal.Footer>
     </Modal>
   </React.Fragment>
