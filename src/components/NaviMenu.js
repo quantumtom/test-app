@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Container from "react-bootstrap/Container";
-import "./NavMenu.css";
+import "./NaviMenu.css";
 
 // TODO: Implement active link
 //  (maybe with hooks?)
 
-class NavMenu extends Component {
+class NaviMenu extends Component {
   render() {
     return (
       <Navbar expand="sm" variant="light" bg="light" sticky="top" className="mb-2">
@@ -43,4 +43,4 @@ class NavMenu extends Component {
     )}
 }
 
-export default NavMenu;
+export default NaviMenu;

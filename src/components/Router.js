@@ -1,6 +1,5 @@
 import React, { Component, Suspense } from "react";
 import Container from "react-bootstrap/Container";
-import './NavMenu.css';
 
 import {
   BrowserRouter as Router,
@@ -9,7 +8,7 @@ import {
   Redirect
 } from "react-router-dom";
 
-import NavMenu from './NavMenu';
+import NaviMenu from './NaviMenu';
 
 const Commercials = React.lazy(() => import("./Commercials"));
 const Shorts = React.lazy(() => import("./Shorts"));
@@ -20,7 +19,7 @@ class Navigation extends Component {
   render() {
     return (
       <Router>
-        <NavMenu />
+        <NaviMenu />
         <Switch>
           <Route exact path="/">
             <Redirect to="/commercials" />
