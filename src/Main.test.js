@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
-import Demo from './Main';
+import Main from './Main';
 
-test('renders Demo', () => {
-  render(<Demo />);
-  const demoElement = screen.getByText(/Admin/i);
-  expect(demoElement).toBeInTheDocument();
+test('renders Main', () => {
+  render(<Main />);
+  const mainElement = screen.getByText(/Admin/i);
+  expect(mainElement).toBeInTheDocument();
 });
