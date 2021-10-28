@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 import "bootstrap/dist/css/bootstrap.css";
 import './Main.css';
-import Navigation from './components/Navigation';
+import Router from './components/Router';
 
 class Demo extends Component {
   render() {
     return <React.Fragment>
       <div>
-        <Navigation />
+        <Router />
       </div>
     </React.Fragment>
   }
