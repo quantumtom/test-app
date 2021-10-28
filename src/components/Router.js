@@ -16,7 +16,7 @@ const Shorts = React.lazy(() => import("./Shorts"));
 const Lists = React.lazy(() => import("./Lists"));
 const About = React.lazy(() => import("./About"));
 
-class Router extends Component {
+class Navigation extends Component {
   render() {
     return (
       <Router>
@@ -59,4 +59,4 @@ class Router extends Component {
   }
 }
 
-export default Router;
+export default Navigation;
