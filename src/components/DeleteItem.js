@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 
 const DeleteItem = (props) => {
   const [show, setShow] = useState(false);
@@ -42,8 +43,10 @@ const DeleteItem = (props) => {
         </Modal.Body>
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>Cancel</Button>
-          <Button variant="danger" onClick={handleDelete}>Delete</Button>
+          <ButtonGroup size="lg" aria-label="Cancel or Delete">
+            <Button variant="secondary" onClick={handleClose}>Cancel</Button>
+            <Button variant="danger" onClick={handleDelete}>Delete</Button>
+          </ButtonGroup>
         </Modal.Footer>
       </Modal>
     </React.Fragment>
