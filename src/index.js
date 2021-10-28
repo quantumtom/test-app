@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Demo from './Demo';
+import Demo from './Main';
 import './globals';
 import reportWebVitals from './reportWebVitals';
 

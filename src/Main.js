@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import "bootstrap/dist/css/bootstrap.css";
-import './Demo.css';
+import './Main.css';
 import Navigation from './components/Navigation';
 
 class Demo extends Component {

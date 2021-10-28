@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Demo from './Demo';
+import Demo from './Main';
 
 test('renders Demo', () => {
   render(<Demo />);
