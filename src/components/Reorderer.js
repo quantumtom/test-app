@@ -5,6 +5,7 @@ import Col from "react-bootstrap/Col";
 import {default as axios} from "axios";
 import EditItem from "./EditItem";
 import "./Reorderer.css";
+import DeleteItem from "./DeleteItem";
 
 axios.defaults.baseURL = window.API_BASE;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -140,7 +141,7 @@ class Reorderer extends Component {
                         )}
                       >
                         <Row>
-                          <Col xs={10}>
+                          <Col xs={6}>
                             <div>
                               <div className="item-text item-title">
                                 {item.title}
@@ -150,12 +151,14 @@ class Reorderer extends Component {
                               </div>
                             </div>
                           </Col>
-                          <Col xs={2}>
-                            <div className="float-right">
+                          <Col xs={6}>
+                            <div>
                               <EditItem
                                 listType={listType}
                                 itemIndex={index}
                                 items={items} />
+                              <DeleteItem
+                                itemIndex={index} />
                             </div>
                           </Col>
                         </Row>
