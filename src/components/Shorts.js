@@ -17,7 +17,7 @@ class Shorts extends Component {
   }
 
   getList() {
-    fetch(`${window.API_BASE}/v1/shorts/`)
+    fetch(`${window.API_BASE}/v1/shorts`)
       .then(res => res.json())
       .then(result => {
           // Made it here.

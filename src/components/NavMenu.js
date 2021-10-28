@@ -19,7 +19,7 @@ class NavMenu extends Component {
               defaultActiveKey="/commercials"
             >
               <Nav.Item>
-                <Nav.Link href="/commercials" className="text-uppercase">Commercials</Nav.Link>
+                <Nav.Link href="/commercials" eventKey={`/commercials`} className="text-uppercase">Commercials</Nav.Link>
               </Nav.Item>
               <Nav.Item>
                 <Nav.Link href="/shorts" className="text-uppercase">Shorts</Nav.Link>
