@@ -2,8 +2,8 @@ import React, { useState } from "react";
 // import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ContentEditable from "react-contenteditable"
-import DeleteItem from "./DeleteItem";
 
 const EditItem = (props) => {
   const [
@@ -81,10 +81,10 @@ const EditItem = (props) => {
       </Modal.Body>
 
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>Cancel</Button>
-        <Button variant="primary" onClick={handleSave}>Save Changes</Button>
-        <DeleteItem
-          itemIndex={itemIndex} />
+        <ButtonGroup size="lg" aria-label="Cancel or Save Changes">
+          <Button variant="secondary" onClick={handleClose}>Cancel</Button>
+          <Button variant="primary" onClick={handleSave}>Save Changes</Button>
+        </ButtonGroup>
       </Modal.Footer>
     </Modal>
   </React.Fragment>
