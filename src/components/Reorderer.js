@@ -76,7 +76,7 @@ class Reorderer extends Component {
   }
 
   sendList(listType, items) {
-    axios.post(`/v1/${listType}/create`,
+    axios.post(`/v1/${listType}`,
       {
         "data": items
       },
