@@ -5,11 +5,9 @@ import Router from './components/Router';
 
 class Demo extends Component {
   render() {
-    return <React.Fragment>
-      <div>
-        <Router />
-      </div>
-    </React.Fragment>
+    return (
+      <Router />
+    );
   }
 }
 
