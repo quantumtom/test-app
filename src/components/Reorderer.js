@@ -4,8 +4,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import {default as axios} from "axios";
 import EditItem from "./EditItem";
-import "./Reorderer.css";
 import DeleteItem from "./DeleteItem";
+import "./Reorderer.css";
 
 axios.defaults.baseURL = window.API_BASE;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
