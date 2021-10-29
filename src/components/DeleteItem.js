@@ -43,7 +43,7 @@ const DeleteItem = (props) => {
         </Modal.Body>
 
         <Modal.Footer>
-          <ButtonGroup size="lg" aria-label="Cancel or Delete">
+          <ButtonGroup size="sm" aria-label="Cancel or Delete">
             <Button variant="secondary" onClick={handleClose}>Cancel</Button>
             <Button variant="danger" onClick={handleDelete}>Delete</Button>
           </ButtonGroup>

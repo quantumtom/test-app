@@ -81,7 +81,7 @@ const EditItem = (props) => {
       </Modal.Body>
 
       <Modal.Footer>
-        <ButtonGroup size="lg" aria-label="Cancel or Save Changes">
+        <ButtonGroup size="sm" aria-label="Cancel or Save Changes">
           <Button variant="secondary" onClick={handleClose}>Cancel</Button>
           <Button variant="primary" onClick={handleSave}>Save Changes</Button>
         </ButtonGroup>
