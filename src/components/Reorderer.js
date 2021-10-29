@@ -141,17 +141,17 @@ class Reorderer extends Component {
                         )}
                       >
                         <Row>
-                          <Col xs={6}>
-                            <div>
-                              <div className="item-text item-title">
-                                {item.title}
-                              </div>
-                              <div className="item-text item-description">
-                                {item.description}
-                              </div>
+                          <Col xs={3}>
+                            <div className="item-text item-title">
+                              {item.title}
                             </div>
                           </Col>
                           <Col xs={6}>
+                            <div className="item-text item-description">
+                              {item.description}
+                            </div>
+                          </Col>
+                          <Col xs={3}>
                             <div>
                               <EditItem
                                 listType={listType}
