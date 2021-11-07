@@ -4,8 +4,17 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ContentEditable from "react-contenteditable"
+import {default as axios} from "axios";
+axios.defaults.baseURL = window.API_BASE;
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 const EditItem = (props) => {
+
+  const items = props.items;
+  const itemIndex = props.itemIndex;
+  const itemJobID = props.itemJobID;
+  const item = items[itemIndex];
+
   const [
     show,     // Initial value (show = false)
     setShow   // Updates the value for "show"
@@ -13,6 +22,18 @@ const EditItem = (props) => {
 
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
+
+  const deleteRecord = (recordIndex) => {
+    axios.delete(`/v2/adverts/${recordIndex}`)
+      .then();
+    console.log(`delete record '${recordIndex}'.`)
+  }
+
+  const handleDelete = evt => {
+    console.log('handleDelete', itemJobID);
+    deleteRecord(itemJobID);
+    handleClose();
+  };
 
   const handleSave = (evt) => {
     console.log(`handleSave: '${evt.currentTarget.innerHTML}'.`);
@@ -28,17 +49,13 @@ const EditItem = (props) => {
     console.dir(evt.target.innerHTML);
   };
 
-  const items = props.items;
-  const itemIndex = props.itemIndex;
-  const item = items[itemIndex];
-
   const contentEditable = React.createRef();
 
-  return <React.Fragment>
+  return (
+    <React.Fragment>
       <Button as="input"
-        variant="primary"
+        variant="danger"
         type="button"
-        className="mr-3"
         value="Edit" size="sm"
         onClick={handleShow}>
       </Button>
@@ -82,12 +99,13 @@ const EditItem = (props) => {
 
       <Modal.Footer>
         <ButtonGroup size="sm" aria-label="Cancel or Save Changes">
-          <Button variant="secondary" onClick={handleClose}>Cancel</Button>
           <Button variant="primary" onClick={handleSave}>Save Changes</Button>
+          <Button variant="secondary" onClick={handleClose}>Cancel</Button>
+          <Button variant="warning" onClick={handleDelete}>Delete</Button>
         </ButtonGroup>
       </Modal.Footer>
     </Modal>
   </React.Fragment>
-};
+)};
 
 export default EditItem;

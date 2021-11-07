@@ -3,12 +3,18 @@ import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 
+import {default as axios} from "axios";
+axios.defaults.baseURL = window.API_BASE;
+axios.defaults.headers.post['Content-Type'] = 'application/json';
+
 const DeleteItem = (props) => {
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
   const deleteRecord = (recordIndex) => {
+    axios.delete(`/v2/adverts/{recordIndex}`)
+      .then();
     console.log(`delete record '${recordIndex}'.`)
   }
 
@@ -29,6 +35,7 @@ const DeleteItem = (props) => {
         size="sm"
         onClick={handleShow} />
       <Modal
+        id={`deleteItem`}
         show={show}
         onHide={handleClose}
         backdrop="static"
@@ -44,8 +51,8 @@ const DeleteItem = (props) => {
 
         <Modal.Footer>
           <ButtonGroup size="sm" aria-label="Cancel or Delete">
-            <Button variant="secondary" onClick={handleClose}>Cancel</Button>
-            <Button variant="danger" onClick={handleDelete}>Delete</Button>
+            <Button variant="danger" onClick={handleDelete}>Yes, delete it.</Button>
+            <Button variant="secondary" onClick={handleClose}>No, stop!</Button>
           </ButtonGroup>
         </Modal.Footer>
       </Modal>

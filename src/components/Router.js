@@ -12,8 +12,9 @@ import NaviMenu from './NaviMenu';
 
 const Commercials = React.lazy(() => import("./Commercials"));
 const Shorts = React.lazy(() => import("./Shorts"));
-const Lists = React.lazy(() => import("./Lists"));
 const About = React.lazy(() => import("./About"));
+const Lists = React.lazy(() => import("./Lists"));
+const Demo = React.lazy(() => import("./Demo"));
 
 class Navigation extends Component {
   render() {
@@ -49,6 +50,13 @@ class Navigation extends Component {
             <Container>
               <Suspense fallback={<div>Loading Lists...</div>}>
                 <Lists />
+              </Suspense>
+            </Container>
+          </Route>
+          <Route path="/demo">
+            <Container>
+              <Suspense fallback={<div>Loading Demo...</div>}>
+                <Demo />
               </Suspense>
             </Container>
           </Route>

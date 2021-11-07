@@ -3,7 +3,7 @@ import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import EditItem from "./EditItem";
-import "./Reorderer.css";
+import "./Demo.css";
 
 import {default as axios} from "axios";
 axios.defaults.baseURL = window.API_BASE;
@@ -38,7 +38,7 @@ const getListStyle = isDraggingOver => ({
   padding: grid
 });
 
-class Reorderer extends Component {
+class Demo extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -54,31 +54,56 @@ class Reorderer extends Component {
     this.getList(this.state.listType);
   }
 
+  toArray(obj) {
+    let retVal = [];
+    let index = 0;
+
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        retVal.push(obj[key]);
+      }
+    }
+
+    return retVal;
+  }
+
+  toObject(arr) {
+    let retVal = {};
+
+    for (let i = 0; i < arr.length; i++) {
+      retVal[i.toString()] = arr[i];
+    }
+
+    return retVal;
+  }
+
   getList(listType) {
-    fetch(`${window.API_BASE}/v1/${listType}/`)
+    fetch(`${window.API_BASE}/v2/adverts`)
       .then(res => res.json())
       .then(result => {
           // Made it here.
-          this.setState({
-            isLoaded: true,
-            items: JSON.parse(result).data
-          });
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          this.setState({
-            error
-          });
-        }
-      ).catch(console.error);
+        console.dir(result);
+        console.dir(this.toArray(result));
+        this.setState({
+          isLoaded: true,
+          items: this.toArray(result)
+        });
+      },
+      // Note: it's important to handle errors here
+      // instead of a catch() block so that we don't swallow
+      // exceptions from actual bugs in components.
+      (error) => {
+        this.setState({
+          error
+        });
+      }
+    ).catch(console.error);
   }
 
   sendList(listType, items) {
-    axios.post(`/v1/${listType}`,
+    axios.post(`/v2/adverts`,
       {
-        "data": items
+        "data": this.toObject(items)
       },
       {
         headers: {
@@ -176,4 +201,4 @@ class Reorderer extends Component {
   }
 }
 
-export default Reorderer;
+export default Demo;

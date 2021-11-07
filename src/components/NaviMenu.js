@@ -36,6 +36,9 @@ class NaviMenu extends Component {
               <Nav.Item>
                 <Nav.Link href="/lists" className="text-uppercase">Admin</Nav.Link>
               </Nav.Item>
+              <Nav.Item>
+                <Nav.Link href="/demo" className="text-uppercase">Demo</Nav.Link>
+              </Nav.Item>
             </Nav>
           </Container>
         </Navbar.Collapse>
