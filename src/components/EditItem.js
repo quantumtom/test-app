@@ -8,11 +8,14 @@ import {default as axios} from "axios";
 axios.defaults.baseURL = window.API_BASE;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
+// Create a custom useForceUpdate hook with useState
+const useForceUpdate = () => useState()[1];
+
 const EditItem = (props) => {
+  const forceUpdate = useForceUpdate();
 
   const items = props.items;
   const itemIndex = props.itemIndex;
-  const itemJobID = props.itemJobID;
   const item = items[itemIndex];
 
   const [
@@ -25,13 +28,15 @@ const EditItem = (props) => {
 
   const deleteRecord = (recordIndex) => {
     axios.delete(`/v2/adverts/${recordIndex}`)
-      .then();
-    console.log(`delete record '${recordIndex}'.`)
+      .then(() => {
+        console.log(`delete record '${recordIndex}'.`)
+        forceUpdate();
+      });
   }
 
-  const handleDelete = evt => {
-    console.log('handleDelete', itemJobID);
-    deleteRecord(itemJobID);
+  const handleDelete = () => {
+    console.log('handleDelete', itemIndex);
+    deleteRecord(itemIndex);
     handleClose();
   };
 

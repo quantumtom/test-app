@@ -18,6 +18,36 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
+const toObject = (arr) => {
+  let retVal = {};
+
+  for (let i = 0; i < arr.length; i++) {
+    retVal[i] = arr[i];
+  }
+
+  return retVal;
+}
+
+const toArray = (obj) => {
+  let retVal = [];
+
+  // Each member is a named reference to a child object
+  // with its own properties. To conver the parent object
+  // into an array, we need to preserve each of its key's
+  // values as a property of its respective child object.
+  for (let key in obj) {
+    if (obj.hasOwnProperty(key)) {
+      // Save key as 'guid'
+      obj[key].guid = key
+      retVal.push(obj[key]);
+    }
+  }
+
+  // console.dir(retVal);
+
+  return retVal;
+}
+
 const grid = 2;
 
 const getItemStyle = (isDragging, draggableStyle) => ({
@@ -25,6 +55,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   userSelect: "none",
   padding: grid * 2,
   margin: `0 0 ${grid}px 0`,
+  minHeight: `50px`,
 
   // change background colour if dragging
   background: isDragging ? "lightgreen" : "grey",
@@ -51,17 +82,18 @@ class Reorderer extends Component {
   }
 
   componentDidMount() {
-    this.getList(this.state.listType);
+    this.fetchList();
   }
 
-  getList(listType) {
-    fetch(`${window.API_BASE}/v1/${listType}/`)
+  fetchList() {
+    const listType = this.state.listType;
+    fetch(`${window.API_BASE}/v2/${listType}`)
       .then(res => res.json())
       .then(result => {
           // Made it here.
           this.setState({
             isLoaded: true,
-            items: JSON.parse(result).data
+            items: toArray(result)
           });
         },
         // Note: it's important to handle errors here
@@ -75,11 +107,13 @@ class Reorderer extends Component {
       ).catch(console.error);
   }
 
-  sendList(listType, items) {
-    axios.post(`/v1/${listType}`,
-      {
-        "data": items
-      },
+  sendList(itemsArr) {
+    const itemsObject = toObject(itemsArr);
+
+    const listType = this.state.listType
+
+    axios.post(`/v2/${listType}`,
+      itemsObject,
       {
         headers: {
           "content-type": "application/json; charset=utf-8",
@@ -87,8 +121,9 @@ class Reorderer extends Component {
           "Vary": "Origin"
         }
       })
-      .then(function (response) {
-        // console.log(response);
+      .then((response) => {
+        // console.log('POST RESPONSE:');
+        // console.dir(response);
       })
       .catch(function (error) {
         console.error(error);
@@ -107,12 +142,12 @@ class Reorderer extends Component {
       result.destination.index
     );
 
-    console.dir(items);
-
-    this.sendList(this.state.listType, items);
+    this.sendList(items);
 
     this.setState({
       items: items
+    }, () => {
+
     });
   }
 
@@ -130,40 +165,41 @@ class Reorderer extends Component {
                 style={getListStyle(snapshot.isDraggingOver)}
               >
                 {items.map((item, index) => (
-                  <Draggable key={item.jobID} draggableId={item.jobID} index={index}>
+                  <Draggable key={item.videoID} draggableId={item.jobID} index={index}>
                     {(provided, snapshot) => (
-                      <div
+                      <Row
                         ref={provided.innerRef}{...provided.draggableProps} {...provided.dragHandleProps}
                         style={getItemStyle(
                           snapshot.isDragging,
                           provided.draggableProps.style
-                        )}
-                      >
-                        <Row>
-                          <Col xs={1}>
-                            <EditItem
-                              listType={listType}
-                              itemIndex={index}
-                              itemJobID={item.jobID}
-                              items={items} />
-                          </Col>
-                          <Col xs={1}>
-                            <div className="item-text item-title">
-                              {item.jobID}
-                            </div>
-                          </Col>
-                          <Col xs={3}>
-                            <div className="item-text item-title">
-                              {item.title}
-                            </div>
-                          </Col>
-                          <Col xs={7}>
-                            <div className="item-text item-description">
-                              {item.description}
-                            </div>
-                          </Col>
-                        </Row>
-                      </div>
+                        )}>
+                        <Col xs={1}>
+                          <EditItem
+                            listType={listType}
+                            itemIndex={index}
+                            items={items} />
+                        </Col>
+                        <Col xs={1}>
+                          <div className="item-text">
+                            {item.jobID}
+                          </div>
+                        </Col>
+                        <Col xs={2}>
+                          <div className="item-text">
+                            {item.videoID}
+                          </div>
+                        </Col>
+                        <Col xs={3}>
+                          <div className="item-text">
+                            {item.title}
+                          </div>
+                        </Col>
+                        <Col xs={5}>
+                          <div className="item-text item-description">
+                            {item.description}
+                          </div>
+                        </Col>
+                      </Row>
                     )}
                   </Draggable>
                 ))} {provided.placeholder}

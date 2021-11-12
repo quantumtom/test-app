@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Stack from "react-bootstrap/Stack";
 import Player from "./Player";
 
-class Shorts extends Component {
+class Commercials extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,14 +10,14 @@ class Shorts extends Component {
       isLoaded: false,
       items: []
     };
-  }
+  };
 
   componentDidMount() {
     this.getList();
   }
 
   getList() {
-    fetch(`${window.API_BASE}/v1/shorts`)
+    fetch(`${window.API_BASE}/v1/shorts`, {mode: 'cors'})
       .then(res => res.json())
       .then(result => {
           // Made it here.
@@ -55,4 +55,4 @@ class Shorts extends Component {
   }
 }
 
-export default Shorts;
+export default Commercials;
