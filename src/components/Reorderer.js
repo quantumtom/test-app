@@ -121,10 +121,10 @@ class Reorderer extends Component {
           "Vary": "Origin"
         }
       })
-      .then((response) => {
-        // console.log('POST RESPONSE:');
-        // console.dir(response);
-      })
+      // .then((response) => {
+      //   console.log('POST RESPONSE:');
+      //   console.dir(response);
+      // })
       .catch(function (error) {
         console.error(error);
       });
