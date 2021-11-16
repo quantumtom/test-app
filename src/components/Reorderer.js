@@ -173,11 +173,15 @@ class Reorderer extends Component {
                           snapshot.isDragging,
                           provided.draggableProps.style
                         )}>
-                        <Col xs={1}>
-                          <EditItem
-                            listType={listType}
-                            itemIndex={index}
-                            items={items} />
+                        <Col xs={3}>
+                          <div className="item-text">
+                            {item.title}
+                          </div>
+                        </Col>
+                        <Col xs={5}>
+                          <div className="item-text item-description">
+                            {item.description}
+                          </div>
                         </Col>
                         <Col xs={1}>
                           <div className="item-text">
@@ -189,15 +193,11 @@ class Reorderer extends Component {
                             {item.videoID}
                           </div>
                         </Col>
-                        <Col xs={3}>
-                          <div className="item-text">
-                            {item.title}
-                          </div>
-                        </Col>
-                        <Col xs={5}>
-                          <div className="item-text item-description">
-                            {item.description}
-                          </div>
+                        <Col xs={1}>
+                          <EditItem
+                            listType={listType}
+                            itemIndex={index}
+                            items={items} />
                         </Col>
                       </Row>
                     )}
