@@ -53,9 +53,9 @@ const grid = 2;
 const getItemStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
   userSelect: "none",
-  padding: grid * 2,
-  margin: `0 0 ${grid}px 0`,
-  minHeight: `50px`,
+  // padding: grid * 2,
+  // margin: `0 0 ${grid}px 0`,
+  // minHeight: `50px`,
 
   // change background colour if dragging
   background: isDragging ? "lightgreen" : "grey",
@@ -165,7 +165,7 @@ class Reorderer extends Component {
                 style={getListStyle(snapshot.isDraggingOver)}
               >
                 {items.map((item, index) => (
-                  <Draggable key={item.videoID} draggableId={item.jobID} index={index}>
+                  <Draggable key={index} draggableId={item.videoID} index={index}>
                     {(provided, snapshot) => (
                       <Row
                         ref={provided.innerRef}{...provided.draggableProps} {...provided.dragHandleProps}
