@@ -54,7 +54,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
   userSelect: "none",
   // padding: grid * 2,
-  // margin: `0 0 ${grid}px 0`,
+  margin: `0 0 ${grid}px 0`,
   // minHeight: `50px`,
 
   // change background colour if dragging
@@ -93,7 +93,7 @@ class Reorderer extends Component {
           // Made it here.
           this.setState({
             isLoaded: true,
-            items: toArray(result)
+            items: result
           });
         },
         // Note: it's important to handle errors here
@@ -107,13 +107,12 @@ class Reorderer extends Component {
       ).catch(console.error);
   }
 
-  sendList(itemsArr) {
-    const itemsObject = toObject(itemsArr);
-
+  sendList() {
+    const items = this.state.items;
     const listType = this.state.listType
 
     axios.post(`/v2/${listType}`,
-      itemsObject,
+      items,
       {
         headers: {
           "content-type": "application/json; charset=utf-8",
@@ -121,10 +120,10 @@ class Reorderer extends Component {
           "Vary": "Origin"
         }
       })
-      // .then((response) => {
-      //   console.log('POST RESPONSE:');
-      //   console.dir(response);
-      // })
+      .then((response) => {
+        console.log('POST RESPONSE:');
+        console.dir(response.data);
+      })
       .catch(function (error) {
         console.error(error);
       });
@@ -146,14 +145,20 @@ class Reorderer extends Component {
 
     this.setState({
       items: items
-    }, () => {
-
     });
   }
 
   render() {
-    const items = this.state.items;
     const listType = this.state.listType;
+
+    if (listType === 'adverts') {
+      console.log(listType);
+      if (!!this.state.items) {
+        console.dir(this.state.items);
+      }
+    }
+
+    const items = Array.from(this.state.items);
 
     return (
       <React.Fragment>
@@ -165,7 +170,7 @@ class Reorderer extends Component {
                 style={getListStyle(snapshot.isDraggingOver)}
               >
                 {items.map((item, index) => (
-                  <Draggable key={index} draggableId={item.videoID} index={index}>
+                  <Draggable key={index} draggableId={item.guid} index={index}>
                     {(provided, snapshot) => (
                       <Row
                         ref={provided.innerRef}{...provided.draggableProps} {...provided.dragHandleProps}
@@ -173,12 +178,17 @@ class Reorderer extends Component {
                           snapshot.isDragging,
                           provided.draggableProps.style
                         )}>
-                        <Col xs={3}>
+                        <Col xs={1}>
+                          <div className="item-text">
+                            {index}
+                          </div>
+                        </Col>
+                        <Col xs={2}>
                           <div className="item-text">
                             {item.title}
                           </div>
                         </Col>
-                        <Col xs={5}>
+                        <Col xs={4}>
                           <div className="item-text item-description">
                             {item.description}
                           </div>
@@ -191,6 +201,11 @@ class Reorderer extends Component {
                         <Col xs={2}>
                           <div className="item-text">
                             {item.videoID}
+                          </div>
+                        </Col>
+                        <Col xs={1}>
+                          <div className="item-text">
+                            {item.guid}
                           </div>
                         </Col>
                         <Col xs={1}>

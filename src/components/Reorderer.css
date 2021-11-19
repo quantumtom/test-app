@@ -1,3 +1,8 @@
+body {
+    background-color: #333;
+    color: #fff;
+}
+
 .item-text {
     flex-direction: column;
     align-items: center;
