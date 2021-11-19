@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom"
 // import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
@@ -58,12 +59,11 @@ const EditItem = (props) => {
 
   return (
     <React.Fragment>
-      <Button as="input"
-        variant="danger"
-        type="button"
-        value="Edit" size="sm"
+      <Link to={`#`}
+        value="Edit"
         onClick={handleShow}>
-      </Button>
+        Edit
+      </Link>
 
     <Modal
       show={show}
