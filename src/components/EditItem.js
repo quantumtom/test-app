@@ -60,9 +60,9 @@ const EditItem = (props) => {
   return (
     <React.Fragment>
       <Link to={`#`}
-        value="Edit"
+        value={item.guid}
         onClick={handleShow}>
-        Edit
+        {item.title}
       </Link>
 
     <Modal
