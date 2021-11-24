@@ -146,6 +146,14 @@ class Reorderer extends Component {
                           {item.guid}
                         </div>
                       </Col>
+                      <Col xs={1}>
+                        <div className="item-text">
+                          <EditItem
+                            item={item}
+                            index={index}
+                          />
+                        </div>
+                      </Col>
                     </Row>
                   )}
                 </Draggable>
