@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import Stack from "react-bootstrap/Stack";
 import Player from "./Player";
+import {default as axios} from "axios";
+axios.defaults.baseURL = window.API_BASE;
+axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 class Commercials extends Component {
   constructor(props) {
@@ -8,7 +11,8 @@ class Commercials extends Component {
     this.state = {
       error: null,
       isLoaded: false,
-      items: []
+      items: [],
+      listType: props.listType || "adverts"
     };
   };
 
@@ -17,41 +21,41 @@ class Commercials extends Component {
   }
 
   getList() {
-    fetch(`${window.API_BASE}/v1/adverts`, {mode: 'cors'})
-      .then(res => res.json())
-      .then(result => {
-          // Made it here.
-          this.setState({
-            isLoaded: true,
-            items: JSON.parse(result).data
-          });
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          this.setState({
-            error
-          });
-        }
-      ).catch(console.error);
+    axios.get(`/v2/${this.state.listType}`)
+      .then((res) => {
+        console.dir(res.data);
+        // Made it here.
+        this.setState({
+          isLoaded: true,
+          items: res.data
+        });
+      })
+      .catch(console.error);
   }
 
   render() {
-    const items = this.state.items;
+    const {error, isLoaded, items} = this.state;
 
-    return <React.Fragment>
-        <Stack gap={5}>
-          {items.map((item, index) => (
-            <Player
-              key={item.title + `-` + index}
-              videoID={item.videoID}
-              title={item.title}
-              description={item.description}
-            />
-          ))}
-        </Stack>
-    </React.Fragment>
+    if (error) {
+      return <div>Error: {error.message}</div>;
+    } else if (!isLoaded) {
+      return <div>Loading...</div>;
+    } else {
+
+      // console.dir(items["clips"]);
+
+
+      return <React.Fragment> <Stack gap={5}>
+        {items["clips"].map((item, index) => (
+          <Player
+            key={item.guid + `-` + index}
+            videoID={item.videoID}
+            title={item.title}
+            description={item.description}
+          />
+        ))}
+      </Stack> </React.Fragment>
+    }
   }
 }
 

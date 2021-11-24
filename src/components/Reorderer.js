@@ -102,31 +102,7 @@ class Reorderer extends Component {
   }
 
   render() {
-    const {error, isLoaded, items, listType} = this.state;
-
-    const tempArr  = [
-      {
-        "guid": "9",
-        "videoID": "117235079",
-        "title": "MERCEDES-BENZ",
-        "description": "Record  (2nd Unit Photography)",
-        "position": 0
-      },
-      {
-        "guid": "7",
-        "videoID": "215058792",
-        "title": "BMW",
-        "description": "Directed by M4  (2nd Unit Photography)",
-        "position": 1
-      },
-      {
-        "guid": "4",
-        "videoID": "273904409",
-        "title": "ALFA ROMEO",
-        "description": "You Don’t Need  (2nd Unit Photography)",
-        "position": 2
-      }
-    ];
+    const {error, isLoaded, items} = this.state;
 
     if (error) {
       return <div>Error: {error.message}</div>;
@@ -146,7 +122,7 @@ class Reorderer extends Component {
                   style={getListStyle(snapshot.isDraggingOver)}
                 >
               {items["clips"].map((item, index) => (
-                <Draggable key={item.guid} draggableId={item.guid} index={index}>
+                <Draggable key={item.guid + "-" + index} draggableId={item.guid + "-" + index} index={index}>
                   {(provided, snapshot) => (
                     <Row
                       ref={provided.innerRef}{...provided.draggableProps} {...provided.dragHandleProps}
@@ -155,22 +131,22 @@ class Reorderer extends Component {
                         provided.draggableProps.style
                       )}
                     >
-                        <Col xs={1}>
-                          <div className="item-text item-title">
-                            {item.guid}
-                          </div>
-                        </Col>
-                        <Col xs={3}>
-                          <div className="item-text item-title">
-                            {item.title}
-                          </div>
-                        </Col>
-                        <Col xs={7}>
-                          <div className="item-text item-description">
-                            {item.description}
-                          </div>
-                        </Col>
-                      </Row>
+                      <Col xs={3}>
+                        <div className="item-text item-title">
+                          {item.title}
+                        </div>
+                      </Col>
+                      <Col xs={7}>
+                        <div className="item-text item-description">
+                          {item.description}
+                        </div>
+                      </Col>
+                      <Col xs={1}>
+                        <div className="item-text">
+                          {item.guid}
+                        </div>
+                      </Col>
+                    </Row>
                   )}
                 </Draggable>
               ))} {provided.placeholder}
