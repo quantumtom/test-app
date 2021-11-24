@@ -78,7 +78,7 @@ const EditItem = (props) => {
       </Modal.Header>
 
       <Modal.Body>
-        Title:
+        <strong>Title:</strong>
         <ContentEditable
           html={item.title}
           innerRef={contentEditable}
@@ -87,7 +87,7 @@ const EditItem = (props) => {
           // tagName={'article'} // Use a custom HTML tag (uses a div by default)
           data-value-type='title'
         />
-        Description:
+        <strong>Description:</strong>
         <ContentEditable
           html={item.description}
           innerRef={contentEditable}
@@ -96,7 +96,7 @@ const EditItem = (props) => {
           // tagName={'article'} // Use a custom HTML tag (uses a div by default)
           data-value-type='description'
         />
-        Video ID:
+        <strong>Video ID:</strong>
         <ContentEditable
           html={item.videoID}
           innerRef={contentEditable}
