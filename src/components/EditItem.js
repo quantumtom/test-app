@@ -15,9 +15,8 @@ const useForceUpdate = () => useState()[1];
 const EditItem = (props) => {
   const forceUpdate = useForceUpdate();
 
-  const items = props.items;
+  const item = props.item;
   const itemIndex = props.itemIndex;
-  const item = items[itemIndex];
 
   const [
     show,     // Initial value (show = false)
@@ -60,7 +59,7 @@ const EditItem = (props) => {
   return (
     <React.Fragment>
       <Link to={`#`}
-        value={item.guid}
+        value={item.title}
         onClick={handleShow}>
         {item.title}
       </Link>

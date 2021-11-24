@@ -18,44 +18,13 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
-const toObject = (arr) => {
-  let retVal = {};
-
-  for (let i = 0; i < arr.length; i++) {
-    retVal[i] = arr[i];
-  }
-
-  return retVal;
-}
-
-const toArray = (obj) => {
-  let retVal = [];
-
-  // Each member is a named reference to a child object
-  // with its own properties. To conver the parent object
-  // into an array, we need to preserve each of its key's
-  // values as a property of its respective child object.
-  for (let key in obj) {
-    if (obj.hasOwnProperty(key)) {
-      // Save key as 'guid'
-      obj[key].guid = key
-      retVal.push(obj[key]);
-    }
-  }
-
-  // console.dir(retVal);
-
-  return retVal;
-}
-
 const grid = 2;
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
   userSelect: "none",
-  // padding: grid * 2,
+  padding: grid * 2,
   margin: `0 0 ${grid}px 0`,
-  // minHeight: `50px`,
 
   // change background colour if dragging
   background: isDragging ? "lightgreen" : "grey",
@@ -75,44 +44,33 @@ class Reorderer extends Component {
     this.state = {
       error: null,
       isLoaded: false,
-      items: [],
-      listType: props.listType
+      listType: props.listType || 'adverts'
     };
     this.onDragEnd = this.onDragEnd.bind(this);
   }
 
   componentDidMount() {
-    this.fetchList();
+    this.getList();
   }
 
-  fetchList() {
-    const listType = this.state.listType;
-    fetch(`${window.API_BASE}/v2/${listType}`)
-      .then(res => res.json())
-      .then(result => {
-          // Made it here.
-          this.setState({
-            isLoaded: true,
-            items: result
-          });
-        },
-        // Note: it's important to handle errors here
-        // instead of a catch() block so that we don't swallow
-        // exceptions from actual bugs in components.
-        (error) => {
-          this.setState({
-            error
-          });
-        }
-      ).catch(console.error);
+  getList() {
+    axios.get(`/v2/${this.state.listType}`)
+      .then((res) => {
+        console.dir(res.data);
+        // Made it here.
+        this.setState({
+          isLoaded: true,
+          items: res.data
+        });
+      })
+      .catch(console.error);
   }
 
-  sendList() {
-    const items = this.state.items;
-    const listType = this.state.listType
-
-    axios.post(`/v2/${listType}`,
-      items,
+  sendList(items) {
+    axios.post(`/v2/${this.state.listType}`,
+      {
+        "clips": items["clips"]
+      },
       {
         headers: {
           "content-type": "application/json; charset=utf-8",
@@ -120,9 +78,8 @@ class Reorderer extends Component {
           "Vary": "Origin"
         }
       })
-      .then((response) => {
-        console.log('POST RESPONSE:');
-        console.dir(response.data);
+      .then(function (response) {
+        console.log(response);
       })
       .catch(function (error) {
         console.error(error);
@@ -142,88 +99,88 @@ class Reorderer extends Component {
     );
 
     this.sendList(items);
-
-    this.setState({
-      items: items
-    });
   }
 
   render() {
-    const listType = this.state.listType;
+    const {error, isLoaded, items, listType} = this.state;
 
-    if (listType === 'adverts') {
-      console.log(listType);
-      if (!!this.state.items) {
-        console.dir(this.state.items);
+    const tempArr  = [
+      {
+        "guid": "9",
+        "videoID": "117235079",
+        "title": "MERCEDES-BENZ",
+        "description": "Record  (2nd Unit Photography)",
+        "position": 0
+      },
+      {
+        "guid": "7",
+        "videoID": "215058792",
+        "title": "BMW",
+        "description": "Directed by M4  (2nd Unit Photography)",
+        "position": 1
+      },
+      {
+        "guid": "4",
+        "videoID": "273904409",
+        "title": "ALFA ROMEO",
+        "description": "You Don’t Need  (2nd Unit Photography)",
+        "position": 2
       }
-    }
+    ];
 
-    const items = Array.from(this.state.items);
+    if (error) {
+      return <div>Error: {error.message}</div>;
+    } else if (!isLoaded) {
+      return <div>Loading...</div>;
+    } else {
 
-    return (
-      <React.Fragment>
-        <DragDropContext onDragEnd={this.onDragEnd}>
-          <Droppable droppableId="droppable">
-            {(provided, snapshot) => (
-              <div{...provided.droppableProps}
-                ref={provided.innerRef}
-                style={getListStyle(snapshot.isDraggingOver)}
-              >
-                {items.map((item, index) => (
-                  <Draggable key={index} draggableId={item.guid} index={index}>
-                    {(provided, snapshot) => (
-                      <Row
-                        ref={provided.innerRef}{...provided.draggableProps} {...provided.dragHandleProps}
-                        style={getItemStyle(
-                          snapshot.isDragging,
-                          provided.draggableProps.style
-                        )}>
+      // console.dir(items["clips"]);
+
+      return (
+        <React.Fragment>
+          <DragDropContext onDragEnd={this.onDragEnd}>
+            <Droppable droppableId="droppable">
+              {(provided, snapshot) => (
+                <div {...provided.droppableProps}
+                  ref={provided.innerRef}
+                  style={getListStyle(snapshot.isDraggingOver)}
+                >
+              {items["clips"].map((item, index) => (
+                <Draggable key={item.guid} draggableId={item.guid} index={index}>
+                  {(provided, snapshot) => (
+                    <Row
+                      ref={provided.innerRef}{...provided.draggableProps} {...provided.dragHandleProps}
+                      style={getItemStyle(
+                        snapshot.isDragging,
+                        provided.draggableProps.style
+                      )}
+                    >
                         <Col xs={1}>
-                          <div className="item-text">
-                            {index}
+                          <div className="item-text item-title">
+                            {item.guid}
                           </div>
                         </Col>
-                        <Col xs={2}>
-                          <div className="item-text">
+                        <Col xs={3}>
+                          <div className="item-text item-title">
                             {item.title}
                           </div>
                         </Col>
-                        <Col xs={4}>
+                        <Col xs={7}>
                           <div className="item-text item-description">
                             {item.description}
                           </div>
                         </Col>
-                        <Col xs={1}>
-                          <div className="item-text">
-                            {item.jobID}
-                          </div>
-                        </Col>
-                        <Col xs={2}>
-                          <div className="item-text">
-                            {item.videoID}
-                          </div>
-                        </Col>
-                        <Col xs={1}>
-                          <div className="item-text">
-                            {item.guid}
-                          </div>
-                        </Col>
-                        <Col xs={1}>
-                          <EditItem
-                            listType={listType}
-                            itemIndex={index}
-                            items={items} />
-                        </Col>
                       </Row>
-                    )}
-                  </Draggable>
-                ))} {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
-      </React.Fragment>
-    );
+                  )}
+                </Draggable>
+              ))} {provided.placeholder}
+            </div>
+          )}
+            </Droppable>
+          </DragDropContext>
+        </React.Fragment>
+      );
+    }
   }
 }
 
