@@ -102,7 +102,7 @@ class Reorderer extends Component {
   }
 
   render() {
-    const {error, isLoaded, items} = this.state;
+    const {error, isLoaded, items, listType} = this.state;
 
     if (error) {
       return <div>Error: {error.message}</div>;
@@ -133,7 +133,11 @@ class Reorderer extends Component {
                     >
                       <Col xs={3}>
                         <div className="item-text item-title">
-                          {item.title}
+                          <EditItem
+                            item={item}
+                            itemIndex={index}
+                            listType={listType}
+                          />
                         </div>
                       </Col>
                       <Col xs={7}>
@@ -148,10 +152,7 @@ class Reorderer extends Component {
                       </Col>
                       <Col xs={1}>
                         <div className="item-text">
-                          <EditItem
-                            item={item}
-                            index={index}
-                          />
+                          {item.position}
                         </div>
                       </Col>
                     </Row>

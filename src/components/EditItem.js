@@ -1,3 +1,4 @@
+import "./EditItem.css"
 import React, { useState } from "react";
 import { Link } from "react-router-dom"
 // import React, { useState, useEffect } from "react";
@@ -17,6 +18,7 @@ const EditItem = (props) => {
 
   const item = props.item;
   const itemIndex = props.itemIndex;
+  const listType = props.listType;
 
   const [
     show,     // Initial value (show = false)
@@ -27,7 +29,7 @@ const EditItem = (props) => {
   const handleClose = () => setShow(false);
 
   const deleteRecord = (recordIndex) => {
-    axios.delete(`/v2/adverts/${recordIndex}`)
+    axios.delete(`/v2/${listType}/${recordIndex}`)
       .then(() => {
         console.log(`delete record '${recordIndex}'.`)
         forceUpdate();
@@ -58,13 +60,14 @@ const EditItem = (props) => {
 
   return (
     <React.Fragment>
-      <Link to={`#`}
-        value={item.title}
-        onClick={handleShow}>
-        {item.title}
-      </Link>
+        <Link to={`#`}
+          className="item-link"
+          value={item.title}
+          onClick={handleShow}>
+          {item.title}
+        </Link>
+      <Modal
 
-    <Modal
       show={show}
       onHide={handleClose}
       backdrop="static"
@@ -75,28 +78,31 @@ const EditItem = (props) => {
       </Modal.Header>
 
       <Modal.Body>
+        Title:
         <ContentEditable
           html={item.title}
           innerRef={contentEditable}
           onChange={handleChange}
           onBlur={handleBlur}
-          tagName={'article'} // Use a custom HTML tag (uses a div by default)
+          // tagName={'article'} // Use a custom HTML tag (uses a div by default)
           data-value-type='title'
         />
+        Description:
         <ContentEditable
           html={item.description}
           innerRef={contentEditable}
           onChange={handleChange}
           onBlur={handleBlur}
-          tagName={'article'} // Use a custom HTML tag (uses a div by default)
+          // tagName={'article'} // Use a custom HTML tag (uses a div by default)
           data-value-type='description'
         />
+        Video ID:
         <ContentEditable
           html={item.videoID}
           innerRef={contentEditable}
           onChange={handleChange}
           onBlur={handleBlur}
-          tagName={'article'} // Use a custom HTML tag (uses a div by default)
+          // tagName={'article'} // Use a custom HTML tag (uses a div by default)
           data-value-type='videoID'
         />
       </Modal.Body>
