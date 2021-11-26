@@ -4,17 +4,18 @@
 }
 
 .video-caption {
-    color: #000;
     font-family: 'Courier New', serif;
     line-height: calc(15px + 1vmin);
 }
 
 .video-title {
+    color: #000;
     font-weight: bold;
     font-size: calc(15px + 1vmin);
 }
 
 .video-description {
+    color: #000;
     font-size: calc(12px + 1vmin);
 }
 

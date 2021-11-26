@@ -1,13 +1,21 @@
 import React, { Component } from "react";
+import "./Reorderer.css";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import EditItem from "./EditItem";
-import "./Reorderer.css";
 
 import {default as axios} from "axios";
 axios.defaults.baseURL = window.API_BASE;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
+
+const conx = axios.create({
+  headers: {
+    "content-type": "application/json; charset=utf-8",
+    "Access-Control-Allow-Origin": "*",
+    "Vary": "Origin"
+  }
+});
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -18,7 +26,7 @@ const reorder = (list, startIndex, endIndex) => {
   return result;
 };
 
-const grid = 2;
+const grid = 5;
 
 const getItemStyle = (isDragging, draggableStyle) => ({
   // some basic styles to make the items look a bit nicer
@@ -56,7 +64,6 @@ class Reorderer extends Component {
   getList() {
     axios.get(`/v2/${this.state.listType}`)
       .then((res) => {
-        console.dir(res.data);
         // Made it here.
         this.setState({
           isLoaded: true,
@@ -67,19 +74,22 @@ class Reorderer extends Component {
   }
 
   sendList(items) {
-    axios.post(`/v2/${this.state.listType}`,
-      {
-        "clips": items["clips"]
-      },
-      {
-        headers: {
-          "content-type": "application/json; charset=utf-8",
-          "Access-Control-Allow-Origin": "*",
-          "Vary": "Origin"
-        }
-      })
+    const {listType} = this.state;
+
+
+    console.log('Sending items:');
+    console.dir(items);
+
+    conx.post(`/v2/${listType}`,
+      {"clips": items["clips"]}
+    )
       .then(function (response) {
-        console.log(response);
+        this.setState({
+          isLoaded: true,
+          items: items
+        });
+        console.log(`response.data is`);
+        console.dir(response.data);
       })
       .catch(function (error) {
         console.error(error);
@@ -99,6 +109,8 @@ class Reorderer extends Component {
     );
 
     this.sendList(items);
+
+    this.setState({items: items});
   }
 
   render() {
@@ -110,7 +122,7 @@ class Reorderer extends Component {
       return <div>Loading...</div>;
     } else {
 
-      // console.dir(items["clips"]);
+      // console.dir(items);
 
       return (
         <React.Fragment>

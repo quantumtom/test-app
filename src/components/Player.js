@@ -20,7 +20,7 @@ class Player extends Component {
     const url = this.state.url
 
     return <React.Fragment>
-      <Container fluid className={`mb-2`}>
+      <Container fluid className={`mb-3`}>
         <div className="embed-responsive embed-responsive-16by9 poster-placeholder">
           <ReactPlayer
             url={url}
