@@ -19,7 +19,7 @@ const conx = axios.create({
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
-  const result = Array.from(list);
+  const result = Array.from(list.clips);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
 
@@ -76,20 +76,14 @@ class Reorderer extends Component {
   sendList(items) {
     const {listType} = this.state;
 
-
-    console.log('Sending items:');
-    console.dir(items);
-
     conx.post(`/v2/${listType}`,
-      {"clips": items["clips"]}
+      items
     )
-      .then(function (response) {
+      .then((response) => {
         this.setState({
           isLoaded: true,
           items: items
         });
-        console.log(`response.data is`);
-        console.dir(response.data);
       })
       .catch(function (error) {
         console.error(error);
@@ -108,9 +102,14 @@ class Reorderer extends Component {
       result.destination.index
     );
 
-    this.sendList(items);
+    this.sendList({
+      "clips": items
+    });
 
-    this.setState({items: items});
+    this.setState({
+      items: items,
+      isLoaded: false
+    });
   }
 
   render() {
@@ -122,7 +121,6 @@ class Reorderer extends Component {
       return <div>Loading...</div>;
     } else {
 
-      // console.dir(items);
 
       return (
         <React.Fragment>
