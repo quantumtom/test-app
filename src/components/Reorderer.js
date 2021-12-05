@@ -62,7 +62,7 @@ class Reorderer extends Component {
   }
 
   getList() {
-    axios.get(`/v2/${this.state.listType}`)
+    conx.get(`/v2/${this.state.listType}`)
       .then((res) => {
         // Made it here.
         this.setState({
@@ -76,9 +76,7 @@ class Reorderer extends Component {
   sendList(items) {
     const {listType} = this.state;
 
-    conx.post(`/v2/${listType}`,
-      items
-    )
+    conx.post(`/v2/${listType}`, items)
       .then((response) => {
         this.setState({
           isLoaded: true,
@@ -150,7 +148,7 @@ class Reorderer extends Component {
                           />
                         </div>
                       </Col>
-                      <Col xs={7}>
+                      <Col xs={6}>
                         <div className="item-text item-description">
                           {item.description}
                         </div>
@@ -162,7 +160,7 @@ class Reorderer extends Component {
                       </Col>
                       <Col xs={1}>
                         <div className="item-text">
-                          {item.position}
+                          {item.videoID}
                         </div>
                       </Col>
                     </Row>
