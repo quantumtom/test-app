@@ -29,7 +29,7 @@ const EditItem = (props) => {
   const handleClose = () => setShow(false);
 
   const deleteRecord = () => {
-    axios.delete(`/v2/${listType}/clips/${itemID}`)
+    axios.delete(`/v2/${listType}/clips/f${itemID}`)
       .then(() => {
         console.log(`delete record '${itemID}'.`)
         forceUpdate();
