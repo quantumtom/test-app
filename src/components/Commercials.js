@@ -23,7 +23,6 @@ class Commercials extends Component {
   getList() {
     axios.get(`/v2/${this.state.listType}`)
       .then((res) => {
-        console.dir(res.data);
         // Made it here.
         this.setState({
           isLoaded: true,
