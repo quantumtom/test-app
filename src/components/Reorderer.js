@@ -139,28 +139,22 @@ class Reorderer extends Component {
                         provided.draggableProps.style
                       )}
                     >
+                      <Col xs={1}>
+                        <div className="item-text item-title">
+                          {index+1}
+                        </div>
+                      </Col>
                       <Col xs={3}>
                         <div className="item-text item-title">
                           <EditItem
                             item={item}
-                            itemIndex={index}
                             listType={listType}
                           />
                         </div>
                       </Col>
-                      <Col xs={6}>
+                      <Col xs={8}>
                         <div className="item-text item-description">
                           {item.description}
-                        </div>
-                      </Col>
-                      <Col xs={1}>
-                        <div className="item-text">
-                          {item.guid}
-                        </div>
-                      </Col>
-                      <Col xs={1}>
-                        <div className="item-text">
-                          {item.videoID}
                         </div>
                       </Col>
                     </Row>
