@@ -17,7 +17,7 @@ const EditItem = (props) => {
   const forceUpdate = useForceUpdate();
 
   const item = props.item;
-  const itemIndex = props.itemIndex;
+  const itemID = item.guid;
   const listType = props.listType;
 
   const [
@@ -28,17 +28,16 @@ const EditItem = (props) => {
   const handleShow = () => setShow(true);
   const handleClose = () => setShow(false);
 
-  const deleteRecord = (recordIndex) => {
-    axios.delete(`/v2/${listType}/${recordIndex}`)
+  const deleteRecord = () => {
+    axios.delete(`/v2/${listType}/clips/${itemID}`)
       .then(() => {
-        console.log(`delete record '${recordIndex}'.`)
+        console.log(`delete record '${itemID}'.`)
         forceUpdate();
       });
   }
 
   const handleDelete = () => {
-    console.log('handleDelete', itemIndex);
-    deleteRecord(itemIndex);
+    deleteRecord();
     handleClose();
   };
 
@@ -48,12 +47,13 @@ const EditItem = (props) => {
   };
 
   const handleBlur = evt => {
+    console.dir(evt.target);
     console.log(`handleBlur: '${evt.target.innerHTML}'.`);
   };
 
   const handleChange = evt => {
+    console.dir(evt.target);
     console.log(`handleChange: '${evt.target.innerHTML}'.`);
-    console.dir(evt.target.innerHTML);
   };
 
   const contentEditable = React.createRef();
@@ -105,6 +105,8 @@ const EditItem = (props) => {
           // tagName={'article'} // Use a custom HTML tag (uses a div by default)
           data-value-type='videoID'
         />
+        <strong>Item ID:</strong>
+        <div>{item.guid}</div>
       </Modal.Body>
 
       <Modal.Footer>
