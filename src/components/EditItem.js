@@ -1,7 +1,6 @@
 import "./EditItem.css"
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom"
-// import React, { useState, useEffect } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
@@ -10,114 +9,102 @@ import {default as axios} from "axios";
 axios.defaults.baseURL = window.API_BASE;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-// Create a custom useForceUpdate hook with useState
-const useForceUpdate = () => useState()[1];
+class EditItem extends React.Component {
+  constructor(props) {
+    super(props);
 
-const EditItem = (props) => {
-  const forceUpdate = useForceUpdate();
+    this.state = {
+      show: false
+    }
+    this.handleDelete = this.handleDelete.bind(this);
+  }
 
-  const item = props.item;
-  const itemID = item.guid;
-  const listType = props.listType;
+  handleShow = () => this.setState({show: true});
+  handleClose = () => this.setState({show: false});
 
-  const [
-    show,     // Initial value (show = false)
-    setShow   // Updates the value for "show"
-  ] = useState(false);
-
-  const handleShow = () => setShow(true);
-  const handleClose = () => setShow(false);
-
-  const deleteRecord = () => {
-    axios.delete(`/v2/${listType}/clips/${itemID}`)
+  deleteRecord = () => {
+    axios.delete(`/v2/${this.props.listType}/clips/${this.props.item.guid}`)
       .then(() => {
-        console.log(`delete record '${itemID}'.`)
-        forceUpdate();
+        console.log(`delete record '${this.props.item.guid}'.`)
+        this.props.rerenderParentCallback();
       });
   }
 
-  const handleDelete = () => {
-    deleteRecord();
-    handleClose();
-  };
+  handleDelete = () => {
+    this.deleteRecord();
+    this.handleClose();
+  }
 
-  const handleSave = (evt) => {
+  handleSave = (evt) => {
     console.log(`handleSave: '${evt.currentTarget.innerHTML}'.`);
-    handleClose();
-  };
+    this.handleClose();
+  }
 
-  const handleBlur = evt => {
-    console.dir(evt.target);
+  handleBlur = evt => {
+    console.dir(evt.target.getAttribute('data-value-type'));
     console.log(`handleBlur: '${evt.target.innerHTML}'.`);
   };
 
-  const handleChange = evt => {
-    console.dir(evt.target);
-    console.log(`handleChange: '${evt.target.innerHTML}'.`);
-  };
+  contentEditable = React.createRef();
 
-  const contentEditable = React.createRef();
+  render () {
+    return (
+      <React.Fragment>
+          <Link to={`#`}
+            className="item-link"
+            value={this.props.item.title}
+            onClick={this.handleShow}>
+            {this.props.item.title}
+          </Link>
+        <Modal
+        show={this.state.show}
+        onHide={this.handleClose}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Edit Record</Modal.Title>
+        </Modal.Header>
 
-  return (
-    <React.Fragment>
-        <Link to={`#`}
-          className="item-link"
-          value={item.title}
-          onClick={handleShow}>
-          {item.title}
-        </Link>
-      <Modal
+        <Modal.Body>
+          <strong>Title:</strong>
+          <ContentEditable
+            html={this.props.item.title}
+            innerRef={this.contentEditable}
+            onBlur={this.handleBlur}
+            // tagName={'article'} // Use a custom HTML tag (uses a div by default)
+            data-value-type='title'
+          />
+          <strong>Description:</strong>
+          <ContentEditable
+            html={this.props.item.description}
+            innerRef={this.contentEditable}
+            onBlur={this.handleBlur}
+            // tagName={'article'} // Use a custom HTML tag (uses a div by default)
+            data-value-type='description'
+          />
+          <strong>Video ID:</strong>
+          <ContentEditable
+            html={this.props.item.videoID}
+            innerRef={this.contentEditable}
+            onBlur={this.handleBlur}
+            // tagName={'article'} // Use a custom HTML tag (uses a div by default)
+            data-value-type='videoID'
+          />
+          <strong>Item ID:</strong>
+          <div>{this.props.item.guid}</div>
+        </Modal.Body>
 
-      show={show}
-      onHide={handleClose}
-      backdrop="static"
-      keyboard={false}
-    >
-      <Modal.Header closeButton>
-        <Modal.Title>Edit Record</Modal.Title>
-      </Modal.Header>
-
-      <Modal.Body>
-        <strong>Title:</strong>
-        <ContentEditable
-          html={item.title}
-          innerRef={contentEditable}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          // tagName={'article'} // Use a custom HTML tag (uses a div by default)
-          data-value-type='title'
-        />
-        <strong>Description:</strong>
-        <ContentEditable
-          html={item.description}
-          innerRef={contentEditable}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          // tagName={'article'} // Use a custom HTML tag (uses a div by default)
-          data-value-type='description'
-        />
-        <strong>Video ID:</strong>
-        <ContentEditable
-          html={item.videoID}
-          innerRef={contentEditable}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          // tagName={'article'} // Use a custom HTML tag (uses a div by default)
-          data-value-type='videoID'
-        />
-        <strong>Item ID:</strong>
-        <div>{item.guid}</div>
-      </Modal.Body>
-
-      <Modal.Footer>
-        <ButtonGroup size="sm" aria-label="Cancel or Save Changes">
-          <Button variant="primary" onClick={handleSave}>Save Changes</Button>
-          <Button variant="secondary" onClick={handleClose}>Cancel</Button>
-          <Button variant="warning" onClick={handleDelete}>Delete</Button>
-        </ButtonGroup>
-      </Modal.Footer>
-    </Modal>
-  </React.Fragment>
-)};
+        <Modal.Footer>
+          <ButtonGroup size="sm" aria-label="Cancel or Save Changes">
+            <Button variant="primary" onClick={this.handleSave}>Save Changes</Button>
+            <Button variant="secondary" onClick={this.handleClose}>Cancel</Button>
+            <Button variant="warning" onClick={this.handleDelete}>Delete</Button>
+          </ButtonGroup>
+        </Modal.Footer>
+      </Modal>
+    </React.Fragment>
+    )}
+}
 
 export default EditItem;

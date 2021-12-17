@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Reorderer.css";
-import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
+import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import EditItem from "./EditItem";
@@ -9,13 +9,15 @@ import {default as axios} from "axios";
 axios.defaults.baseURL = window.API_BASE;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-const conx = axios.create({
+const opts = {
   headers: {
     "content-type": "application/json; charset=utf-8",
     "Access-Control-Allow-Origin": "*",
     "Vary": "Origin"
   }
-});
+}
+
+const conx = axios.create(opts);
 
 // a little function to help us with reordering the result
 const reorder = (list, startIndex, endIndex) => {
@@ -51,10 +53,15 @@ class Reorderer extends Component {
     super(props);
     this.state = {
       error: null,
-      isLoaded: false,
-      listType: props.listType || 'adverts'
+      isLoaded: false
     };
     this.onDragEnd = this.onDragEnd.bind(this);
+    this.rerenderParentCallback = this.rerenderParentCallback.bind(this);
+  }
+
+  rerenderParentCallback() {
+    this.getList();
+    console.log('here');
   }
 
   componentDidMount() {
@@ -62,7 +69,7 @@ class Reorderer extends Component {
   }
 
   getList() {
-    conx.get(`/v2/${this.state.listType}`)
+    conx.get(`/v2/${this.props.listType}`)
       .then((res) => {
         // Made it here.
         this.setState({
@@ -74,9 +81,7 @@ class Reorderer extends Component {
   }
 
   sendList(items) {
-    const {listType} = this.state;
-
-    conx.post(`/v2/${listType}`, items)
+    conx.post(`/v2/${this.props.listType}`, items)
       .then((response) => {
         this.setState({
           isLoaded: true,
@@ -111,7 +116,7 @@ class Reorderer extends Component {
   }
 
   render() {
-    const {error, isLoaded, items, listType} = this.state;
+    const { error, isLoaded, items } = this.state;
 
     if (error) {
       return <div>Error: {error.message}</div>;
@@ -148,7 +153,8 @@ class Reorderer extends Component {
                         <div className="item-text item-title">
                           <EditItem
                             item={item}
-                            listType={listType}
+                            listType={this.props.listType}
+                            rerenderParentCallback={this.rerenderParentCallback}
                           />
                         </div>
                       </Col>
