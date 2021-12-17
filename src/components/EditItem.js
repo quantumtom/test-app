@@ -14,15 +14,17 @@ class EditItem extends React.Component {
     super(props);
 
     this.state = {
-      show: false
+      show: false,
+      newItem: this.props.item
     }
+
     this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleShow = () => this.setState({show: true});
   handleClose = () => this.setState({show: false});
 
-  deleteRecord = () => {
+  deleteRecord = async () => {
     axios.delete(`/v2/${this.props.listType}/clips/${this.props.item.guid}`)
       .then(() => {
         console.log(`delete record '${this.props.item.guid}'.`)
@@ -35,8 +37,17 @@ class EditItem extends React.Component {
     this.handleClose();
   }
 
+  editRecord = async () => {
+    const res = await axios.put(`/v2/${this.props.listType}/clips/${this.props.item.guid}`, this.state.newItem)
+      .then(() => {
+        console.log(`edit record '${this.props.item.guid}'.`)
+        this.props.rerenderParentCallback();
+      });
+  }
+
   handleSave = (evt) => {
     console.log(`handleSave: '${evt.currentTarget.innerHTML}'.`);
+    this.editRecord();
     this.handleClose();
   }
 
@@ -63,7 +74,7 @@ class EditItem extends React.Component {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Edit Record</Modal.Title>
+          <Modal.Title>Edit {this.props.item.title} (ID #{this.props.item.guid})</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
@@ -91,8 +102,6 @@ class EditItem extends React.Component {
             // tagName={'article'} // Use a custom HTML tag (uses a div by default)
             data-value-type='videoID'
           />
-          <strong>Item ID:</strong>
-          <div>{this.props.item.guid}</div>
         </Modal.Body>
 
         <Modal.Footer>

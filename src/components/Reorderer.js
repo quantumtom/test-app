@@ -3,6 +3,7 @@ import "./Reorderer.css";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
 import EditItem from "./EditItem";
 
 import {default as axios} from "axios";
@@ -134,6 +135,24 @@ class Reorderer extends Component {
                   ref={provided.innerRef}
                   style={getListStyle(snapshot.isDraggingOver)}
                 >
+
+                  <Row style={getItemStyle()}>
+                    <Col xs={1} className={`item-heading item-text text-right`}>
+                      <strong>Position</strong>
+                    </Col>
+                    <Col xs={1}>
+                      &nbsp;
+                    </Col>
+                    <Col xs={3} className={`item-heading item-text`}>
+                      <strong>Title</strong>
+                    </Col>
+                    <Col xs={5} className={`item-heading item-text`}>
+                      <strong>Description</strong>
+                    </Col>
+                    <Col xs={2} className={`item-heading item-text text-right`}>
+                      <strong>Video ID</strong>
+                    </Col>
+                  </Row>
               {items["clips"].map((item, index) => (
                 <Draggable key={item.guid + "-" + index} draggableId={item.guid + "-" + index} index={index}>
                   {(provided, snapshot) => (
@@ -145,9 +164,12 @@ class Reorderer extends Component {
                       )}
                     >
                       <Col xs={1}>
-                        <div className="item-text item-title">
+                        <div className="item-text item-number text-right">
                           {index+1}
                         </div>
+                      </Col>
+                      <Col xs={1}>
+                        &nbsp;
                       </Col>
                       <Col xs={3}>
                         <div className="item-text item-title">
@@ -158,9 +180,14 @@ class Reorderer extends Component {
                           />
                         </div>
                       </Col>
-                      <Col xs={8}>
+                      <Col xs={5}>
                         <div className="item-text item-description">
                           {item.description}
+                        </div>
+                      </Col>
+                      <Col xs={2}>
+                        <div className="item-text text-right">
+                          {item.videoID}
                         </div>
                       </Col>
                     </Row>
