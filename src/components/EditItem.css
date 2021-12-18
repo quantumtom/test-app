@@ -1,5 +1,26 @@
+.item-text {
+    color: darkcyan;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(8px + 1vmin);
+}
+
+.item-title {
+    color: lightblue;
+    font-weight: bold;
+}
+
+.item-heading {
+    color: darkslateblue    ;
+}
+
+.item-description {
+
+}
+
 .item-link, .item-link:visited, .item-link:active {
-    color: #0b2e13;
+    color: darkgreen;
 }
 
 .item-link:hover {

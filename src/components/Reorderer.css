@@ -1,18 +1,3 @@
-.item-text {
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(8px + 1vmin);
-}
-
-.item-title {
-    font-weight: bold;
-}
-
-.item-description {
-
-}
-
 .no-gutters {
     margin-right: 0;
     margin-left: 0;

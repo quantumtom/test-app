@@ -3,7 +3,6 @@ import "./Reorderer.css";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
 import EditItem from "./EditItem";
 
 import {default as axios} from "axios";
@@ -38,7 +37,7 @@ const getItemStyle = (isDragging, draggableStyle) => ({
   margin: `0 0 ${grid}px 0`,
 
   // change background colour if dragging
-  background: isDragging ? "lightgreen" : "grey",
+  background: isDragging ? "lightgreen" : "lightgoldenrodyellow",
 
   // styles we need to apply on draggables
   ...draggableStyle

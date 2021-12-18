@@ -38,8 +38,9 @@ class EditItem extends React.Component {
   }
 
   editRecord = async () => {
-    const res = await axios.put(`/v2/${this.props.listType}/clips/${this.props.item.guid}`, this.state.newItem)
-      .then(() => {
+    const res = await axios.put(`/v2/${this.props.listType}/clips/${this.props.item.guid}`, this.state.newItem);
+
+    res.then(() => {
         console.log(`edit record '${this.props.item.guid}'.`)
         this.props.rerenderParentCallback();
       });
