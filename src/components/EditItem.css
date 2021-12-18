@@ -4,6 +4,7 @@
     align-items: center;
     justify-content: center;
     font-size: calc(8px + 1vmin);
+    width: max-content;
 }
 
 .item-title {
@@ -12,11 +13,12 @@
 }
 
 .item-heading {
-    color: darkslateblue    ;
+    color: darkslateblue;
+    text-transform: uppercase;
+    width: max-content;
 }
 
 .item-description {
-
 }
 
 .item-link, .item-link:visited, .item-link:active {
