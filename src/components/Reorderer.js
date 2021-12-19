@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import "./Reorderer.css";
 import { DragDropContext, Draggable, Droppable } from "react-beautiful-dnd";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
+import { Row, Col } from "react-bootstrap";
 import EditItem from "./EditItem";
+import AddItem from "./AddItem";
 
 import {default as axios} from "axios";
 axios.defaults.baseURL = window.API_BASE;
@@ -61,7 +61,6 @@ class Reorderer extends Component {
 
   rerenderParentCallback() {
     this.getList();
-    console.log('here');
   }
 
   componentDidMount() {
@@ -127,6 +126,11 @@ class Reorderer extends Component {
 
       return (
         <React.Fragment>
+          <AddItem listType="adverts"
+            title="Sample Title"
+            description="Sample Description"
+            videoID="999999999"
+          />
           <DragDropContext onDragEnd={this.onDragEnd}>
             <Droppable droppableId="droppable">
               {(provided, snapshot) => (
