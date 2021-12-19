@@ -1,4 +1,4 @@
-import "./EditItem.css"
+import "./AddItem.css"
 import React from "react";
 import { Link } from "react-router-dom"
 import { Modal, Button, ButtonGroup } from "react-bootstrap";
@@ -8,39 +8,31 @@ import { default as axios } from "axios";
 axios.defaults.baseURL = window.API_BASE;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-class EditItem extends React.Component {
+class AddItem extends React.Component {
   constructor(props) {
     super(props);
+
+    this.newItem = {
+      title: 'New Title',
+      description: 'New Derscription',
+      videoID: ''
+    };
 
     this.state = {
       show: false
     }
-
-    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleShow = () => this.setState({show: true});
   handleClose = () => this.setState({show: false});
 
-  deleteRecord = () => {
-    axios.delete(`/v2/${this.props.listType}/clips/${this.props.item.guid}`)
-      .then(() => {
-        console.log(`delete record '${this.props.item.guid}'.`)
-        this.props.rerenderParentCallback();
-      });
-  }
-
-  handleDelete = () => {
-    this.deleteRecord();
-    this.handleClose();
-  }
-
+  // TODO Add some client-side validation of form input data
   saveRecord = () => {
-    axios.put(`/v2/${this.props.listType}/clips/${this.props.item.guid}`, this.props.item)
+    axios.post(`/v2/${this.props.listType}/clips`, this.props.item)
       .then((res) => {
-        // console.log(`edit record '${this.props.item.guid}'.`)
+        console.log(`add record '${this.props.item}'.`)
         this.props.rerenderParentCallback();
-        // console.log(res);
+        console.log(res);
       });
   }
 
@@ -56,13 +48,13 @@ class EditItem extends React.Component {
 
     switch (propertyName) {
       case 'title':
-        this.props.item.title = evt.target.innerHTML;
+        this.newItem.title = evt.target.innerHTML;
         break;
       case 'description':
-        this.props.item.description = evt.target.innerHTML;
+        this.newItem.description = evt.target.innerHTML;
         break;
       case 'videoID':
-        this.props.item.videoID = evt.target.innerHTML;
+        this.newItem.videoID = evt.target.innerHTML;
         break;
       default:
         console.err('Invalid property name : ' + propertyName)
@@ -76,9 +68,8 @@ class EditItem extends React.Component {
       <React.Fragment>
           <Link to={`#`}
             className="item-link"
-            value={this.props.item.title}
             onClick={this.handleShow}>
-            {this.props.item.title}
+            Add a new item.
           </Link>
         <Modal
         show={this.state.show}
@@ -87,13 +78,13 @@ class EditItem extends React.Component {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Edit {this.props.item.title}</Modal.Title>
+          <Modal.Title>Add Item</Modal.Title>
         </Modal.Header>
 
         <Modal.Body>
           <span className="float-left font-weight-bold mr-1">Title:</span>
           <ContentEditable
-            html={this.props.item.title}
+            html={this.props.videoID}
             innerRef={this.contentEditable}
             onBlur={this.handleBlur}
             // tagName={'article'} // Use a custom HTML tag (uses a div by default)
@@ -101,7 +92,7 @@ class EditItem extends React.Component {
           />
           <span className="float-left font-weight-bold mr-1">Description:</span>
           <ContentEditable
-            html={this.props.item.description}
+            html={this.props.description}
             innerRef={this.contentEditable}
             onBlur={this.handleBlur}
             // tagName={'article'} // Use a custom HTML tag (uses a div by default)
@@ -109,21 +100,18 @@ class EditItem extends React.Component {
           />
           <span className="float-left font-weight-bold mr-1">Video ID:</span>
           <ContentEditable
-            html={this.props.item.videoID}
+            html={this.props.videoID}
             innerRef={this.contentEditable}
             onBlur={this.handleBlur}
             // tagName={'article'} // Use a custom HTML tag (uses a div by default)
             data-value-type='videoID'
           />
-          {/*<span className="float-left font-weight-bold mr-1">Record ID:</span>*/}
-          {/*<div>{this.props.item.guid}</div>*/}
         </Modal.Body>
 
         <Modal.Footer>
           <ButtonGroup size="sm" aria-label="Cancel or Save Changes">
             <Button variant="primary" onClick={this.handleSave}>Save Changes</Button>
             <Button variant="secondary" onClick={this.handleClose}>Cancel</Button>
-            <Button variant="warning" onClick={this.handleDelete}>Delete</Button>
           </ButtonGroup>
         </Modal.Footer>
       </Modal>
@@ -131,4 +119,4 @@ class EditItem extends React.Component {
     )}
 }
 
-export default EditItem;
+export default AddItem;
