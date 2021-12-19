@@ -9,7 +9,7 @@ function Lists() {
   return (
     <React.Fragment>
       <h3>Lists</h3>
-      <p>Drag and drop items to change their position in the list.</p>
+      <p>Drag and drop items to reorder the list.</p>
       <Tabs
         id="controlled-tab-lol"
         activeKey={key}
