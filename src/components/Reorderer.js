@@ -130,6 +130,7 @@ class Reorderer extends Component {
             title="Sample Title"
             description="Sample Description"
             videoID="999999999"
+            rerenderParentCallback={this.rerenderParentCallback}
           />
           <DragDropContext onDragEnd={this.onDragEnd}>
             <Droppable droppableId="droppable">
@@ -140,9 +141,6 @@ class Reorderer extends Component {
                 >
 
                   <Row style={getItemStyle()}>
-                    <Col xs={1} className={`item-heading item-text text-right`}>
-                      <strong>Position</strong>
-                    </Col>
                     <Col xs={1}>
                       &nbsp;
                     </Col>
@@ -152,7 +150,7 @@ class Reorderer extends Component {
                     <Col xs={5} className={`item-heading item-text`}>
                       <strong>Description</strong>
                     </Col>
-                    <Col xs={2} className={`item-heading item-text text-right`}>
+                    <Col xs={2} className={`item-heading item-text`}>
                       <strong>Video ID</strong>
                     </Col>
                   </Row>
@@ -166,11 +164,6 @@ class Reorderer extends Component {
                         provided.draggableProps.style
                       )}
                     >
-                      <Col xs={1}>
-                        <div className="item-text item-number text-right">
-                          {index+1}
-                        </div>
-                      </Col>
                       <Col xs={1}>
                         &nbsp;
                       </Col>

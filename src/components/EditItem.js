@@ -17,6 +17,7 @@ class EditItem extends React.Component {
     }
 
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleSave = this.handleSave.bind(this);
   }
 
   handleShow = () => this.setState({show: true});
@@ -24,9 +25,9 @@ class EditItem extends React.Component {
 
   deleteRecord = () => {
     axios.delete(`/v2/${this.props.listType}/clips/${this.props.item.guid}`)
-      .then(() => {
-        console.log(`delete record '${this.props.item.guid}'.`)
+      .then((res) => {
         this.props.rerenderParentCallback();
+        console.log(res);
       });
   }
 
@@ -38,36 +39,14 @@ class EditItem extends React.Component {
   saveRecord = () => {
     axios.put(`/v2/${this.props.listType}/clips/${this.props.item.guid}`, this.props.item)
       .then((res) => {
-        // console.log(`edit record '${this.props.item.guid}'.`)
         this.props.rerenderParentCallback();
-        // console.log(res);
       });
   }
 
   handleSave = (evt) => {
-    console.log(`handleSave: '${evt.currentTarget.innerHTML}'.`);
     this.saveRecord();
     this.handleClose();
   }
-
-  handleBlur = evt => {
-    let propertyName = evt.target.getAttribute('data-value-type');
-    // console.dir(evt.target.getAttribute('data-value-type'));
-
-    switch (propertyName) {
-      case 'title':
-        this.props.item.title = evt.target.innerHTML;
-        break;
-      case 'description':
-        this.props.item.description = evt.target.innerHTML;
-        break;
-      case 'videoID':
-        this.props.item.videoID = evt.target.innerHTML;
-        break;
-      default:
-        console.err('Invalid property name : ' + propertyName)
-    }
-  };
 
   contentEditable = React.createRef();
 
@@ -96,27 +75,17 @@ class EditItem extends React.Component {
             html={this.props.item.title}
             innerRef={this.contentEditable}
             onBlur={this.handleBlur}
-            // tagName={'article'} // Use a custom HTML tag (uses a div by default)
-            data-value-type='title'
           />
           <span className="float-left font-weight-bold mr-1">Description:</span>
           <ContentEditable
             html={this.props.item.description}
             innerRef={this.contentEditable}
-            onBlur={this.handleBlur}
-            // tagName={'article'} // Use a custom HTML tag (uses a div by default)
-            data-value-type='description'
           />
           <span className="float-left font-weight-bold mr-1">Video ID:</span>
           <ContentEditable
             html={this.props.item.videoID}
             innerRef={this.contentEditable}
-            onBlur={this.handleBlur}
-            // tagName={'article'} // Use a custom HTML tag (uses a div by default)
-            data-value-type='videoID'
           />
-          {/*<span className="float-left font-weight-bold mr-1">Record ID:</span>*/}
-          {/*<div>{this.props.item.guid}</div>*/}
         </Modal.Body>
 
         <Modal.Footer>
