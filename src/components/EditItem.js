@@ -17,25 +17,11 @@ class EditItem extends React.Component {
       show: false
     }
 
-    this.handleDelete = this.handleDelete.bind(this);
     this.handleSave = this.handleSave.bind(this);
   }
 
   handleShow = () => this.setState({show: true});
   handleClose = () => this.setState({show: false});
-
-  deleteRecord = () => {
-    axios.delete(`/v2/${this.props.listType}/clips/${this.props.item.guid}`)
-      .then((res) => {
-        this.props.rerenderParentCallback();
-        console.log(res);
-      });
-  }
-
-  handleDelete = () => {
-    this.deleteRecord();
-    this.handleClose();
-  }
 
   saveRecord = () => {
     axios.put(`/v2/${this.props.listType}/clips/${this.props.item.guid}`, this.props.item)
