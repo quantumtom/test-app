@@ -3,6 +3,7 @@ import React from "react";
 import { Link } from "react-router-dom"
 import { Modal, Form, Button, ButtonGroup } from "react-bootstrap";
 import { default as axios } from "axios";
+import { FcPlus } from 'react-icons/fc';
 
 axios.defaults.baseURL = window.API_BASE;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -15,7 +16,8 @@ class AddItem extends React.Component {
       show: false,
       title: this.props.title,
       description: this.props.description,
-      videoID: this.props.videoID
+      videoID: this.props.videoID,
+      itemIndex: this.props.itemIndex
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -42,7 +44,8 @@ class AddItem extends React.Component {
     const newItem = {
       title: this.state.title,
       description: this.state.description,
-      videoID: this.state.videoID
+      videoID: this.state.videoID,
+      itemIndex: this.state.itemIndex
     };
 
 
@@ -65,7 +68,7 @@ class AddItem extends React.Component {
         <Link to={`#`}
           className="item-link"
           onClick={this.handleShow}>
-          Add a new item.
+          <FcPlus />
         </Link>
         <Modal
           show={this.state.show}
