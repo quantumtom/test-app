@@ -6,6 +6,7 @@ import EditItem from "./EditItem";
 import AddItem from "./AddItem";
 
 import {default as axios} from "axios";
+import DeleteItem from "./DeleteItem";
 axios.defaults.baseURL = window.API_BASE;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
@@ -126,12 +127,6 @@ class Reorderer extends Component {
 
       return (
         <React.Fragment>
-          <AddItem listType="adverts"
-            title="Sample Title"
-            description="Sample Description"
-            videoID="999999999"
-            rerenderParentCallback={this.rerenderParentCallback}
-          />
           <DragDropContext onDragEnd={this.onDragEnd}>
             <Droppable droppableId="droppable">
               {(provided, snapshot) => (
@@ -139,21 +134,6 @@ class Reorderer extends Component {
                   ref={provided.innerRef}
                   style={getListStyle(snapshot.isDraggingOver)}
                 >
-
-                  <Row style={getItemStyle()}>
-                    <Col xs={1}>
-                      &nbsp;
-                    </Col>
-                    <Col xs={3} className={`item-heading item-text`}>
-                      <strong>Title</strong>
-                    </Col>
-                    <Col xs={5} className={`item-heading item-text`}>
-                      <strong>Description</strong>
-                    </Col>
-                    <Col xs={2} className={`item-heading item-text`}>
-                      <strong>Video ID</strong>
-                    </Col>
-                  </Row>
               {items["clips"].map((item, index) => (
                 <Draggable key={item.guid + "-" + index} draggableId={item.guid + "-" + index} index={index}>
                   {(provided, snapshot) => (
@@ -164,27 +144,31 @@ class Reorderer extends Component {
                         provided.draggableProps.style
                       )}
                     >
-                      <Col xs={1}>
-                        &nbsp;
-                      </Col>
-                      <Col xs={3}>
-                        <div className="item-text item-title">
-                          <EditItem
-                            item={item}
-                            listType={this.props.listType}
-                            rerenderParentCallback={this.rerenderParentCallback}
-                          />
-                        </div>
-                      </Col>
-                      <Col xs={5}>
-                        <div className="item-text item-description">
+                      <Col xs={9}>
+                        <div className="item-text">
+                          <b>{item.title}</b><br />
                           {item.description}
                         </div>
                       </Col>
-                      <Col xs={2}>
-                        <div className="item-text text-right">
-                          {item.videoID}
-                        </div>
+                      <Col xs={1}>
+                        <AddItem listType="adverts"
+                          itemIndex={index}
+                          rerenderParentCallback={this.rerenderParentCallback}
+                        />
+                      </Col>
+                      <Col xs={1}>
+                        <EditItem
+                          item={item}
+                          listType={this.props.listType}
+                          rerenderParentCallback={this.rerenderParentCallback}
+                        />
+                      </Col>
+                      <Col xs={1}>
+                        <DeleteItem
+                          item={item}
+                          listType={this.props.listType}
+                          rerenderParentCallback={this.rerenderParentCallback}
+                        />
                       </Col>
                     </Row>
                   )}

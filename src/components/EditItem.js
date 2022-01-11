@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import { Modal, Button, ButtonGroup } from "react-bootstrap";
 import ContentEditable from "react-contenteditable"
 import { default as axios } from "axios";
+import { FcServices } from 'react-icons/fc';
 
 axios.defaults.baseURL = window.API_BASE;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
@@ -43,7 +44,7 @@ class EditItem extends React.Component {
       });
   }
 
-  handleSave = (evt) => {
+  handleSave = () => {
     this.saveRecord();
     this.handleClose();
   }
@@ -57,7 +58,7 @@ class EditItem extends React.Component {
             className="item-link"
             value={this.props.item.title}
             onClick={this.handleShow}>
-            {this.props.item.title}
+            <FcServices />
           </Link>
         <Modal
         show={this.state.show}
@@ -92,7 +93,6 @@ class EditItem extends React.Component {
           <ButtonGroup size="sm" aria-label="Cancel or Save Changes">
             <Button variant="primary" onClick={this.handleSave}>Save Changes</Button>
             <Button variant="secondary" onClick={this.handleClose}>Cancel</Button>
-            <Button variant="warning" onClick={this.handleDelete}>Delete</Button>
           </ButtonGroup>
         </Modal.Footer>
       </Modal>
