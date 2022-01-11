@@ -151,8 +151,9 @@ class Reorderer extends Component {
                         </div>
                       </Col>
                       <Col xs={1}>
-                        <AddItem listType="adverts"
+                        <AddItem
                           itemIndex={index}
+                          listType="adverts"
                           rerenderParentCallback={this.rerenderParentCallback}
                         />
                       </Col>
