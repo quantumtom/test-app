@@ -116,6 +116,11 @@ class Reorderer extends Component {
   }
 
   render() {
+    const placeholderItem = {
+      title: 'Example Title',
+      description: 'Example Description',
+      videoID: '218705523'
+    };
     const { error, isLoaded, items } = this.state;
 
     if (error) {
@@ -144,18 +149,19 @@ class Reorderer extends Component {
                         provided.draggableProps.style
                       )}
                     >
+                      <Col xs={1}>
+                        <AddItem
+                          item={placeholderItem}
+                          itemIndex={index}
+                          listType={this.props.listType}
+                          rerenderParentCallback={this.rerenderParentCallback}
+                        />
+                      </Col>
                       <Col xs={9}>
                         <div className="item-text">
                           <b>{item.title}</b><br />
                           {item.description}
                         </div>
-                      </Col>
-                      <Col xs={1}>
-                        <AddItem
-                          itemIndex={index}
-                          listType="adverts"
-                          rerenderParentCallback={this.rerenderParentCallback}
-                        />
                       </Col>
                       <Col xs={1}>
                         <EditItem

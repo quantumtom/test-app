@@ -3,6 +3,10 @@
     margin-left: 0;
 }
 
+.item-link, .item-link:visited, .item-link:active {
+    font-size: 2em;
+}
+
 .col, [class*="col-"] {
     padding-right: 0;
     padding-left: 0;

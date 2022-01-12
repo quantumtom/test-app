@@ -14,9 +14,9 @@ class AddItem extends React.Component {
 
     this.state = {
       show: false,
-      title: this.props.title,
-      description: this.props.description,
-      videoID: this.props.videoID,
+      title: this.props.item.title,
+      description: this.props.item.description,
+      videoID: this.props.item.videoID,
       itemIndex: this.props.itemIndex
     }
 
@@ -47,7 +47,6 @@ class AddItem extends React.Component {
       videoID: this.state.videoID,
       itemIndex: this.state.itemIndex
     };
-
 
     axios.post(`/v2/${this.props.listType}/clips`, newItem)
       .then((res) => {
