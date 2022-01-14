@@ -46,12 +46,9 @@ class EditItem extends React.Component {
       itemIndex: this.state.itemIndex
     };
 
-    console.dir(newItem);
-
     axios.put(`/v2/${this.props.listType}/clips/${this.state.guid}`, newItem)
       .then((res) => {
         this.props.rerenderParentCallback();
-        console.log(res);
       });
   }
 
