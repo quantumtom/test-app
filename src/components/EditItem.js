@@ -17,7 +17,7 @@ class EditItem extends React.Component {
       title: this.props.item.title,
       description: this.props.item.description,
       videoID: this.props.item.videoID,
-      itemIndex: this.props.itemIndex
+      guid: this.props.item.guid
     }
 
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -27,9 +27,6 @@ class EditItem extends React.Component {
     const target = evt.target;
     const name = target.name;
     const value = target.value;
-
-    console.dir(evt);
-    console.log(`name is ${name}`);
 
     this.setState({
       [name]: value
@@ -45,13 +42,16 @@ class EditItem extends React.Component {
       title: this.state.title,
       description: this.state.description,
       videoID: this.state.videoID,
+      guid: this.state.guid,
       itemIndex: this.state.itemIndex
     };
 
+    console.dir(newItem);
 
-    axios.post(`/v2/${this.props.listType}/clips`, newItem)
+    axios.put(`/v2/${this.props.listType}/clips/${this.state.guid}`, newItem)
       .then((res) => {
         this.props.rerenderParentCallback();
+        console.log(res);
       });
   }
 
@@ -119,7 +119,7 @@ class EditItem extends React.Component {
 
           <Modal.Footer>
             <ButtonGroup size="sm" aria-label="Add item or cancel">
-              <Button variant="info" onClick={this.handleSave}>Add</Button>
+              <Button variant="info" onClick={this.handleSave}>Save</Button>
               <Button variant="secondary" onClick={this.handleClose}>Cancel</Button>
             </ButtonGroup>
           </Modal.Footer>
