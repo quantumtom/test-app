@@ -23,7 +23,7 @@ class Shorts extends Component {
   getList() {
     axios.get(`/v2/${this.state.listType}`)
       .then((res) => {
-        console.dir(res.data);
+        // console.dir(res.data);
         // Made it here.
         this.setState({
           isLoaded: true,
@@ -34,17 +34,13 @@ class Shorts extends Component {
   }
 
   render() {
-    const {error, isLoaded, items} = this.state;
+    const { error, isLoaded, items } = this.state;
 
     if (error) {
       return <div>Error: {error.message}</div>;
     } else if (!isLoaded) {
       return <div>Loading...</div>;
     } else {
-
-      // console.dir(items["clips"]);
-
-
       return <React.Fragment> <Stack gap={5}>
         {items["clips"].map((item, index) => (
           <Player
