@@ -1,8 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Menu from './Main';
-import './globals';
 import reportWebVitals from './reportWebVitals';
+import dotenv from 'dotenv'
+
+dotenv.config({ debug: false })
 
 ReactDOM.render(
   <React.StrictMode>

@@ -5,7 +5,7 @@ import { Modal, Form, Button, ButtonGroup } from "react-bootstrap";
 import { default as axios } from "axios";
 import { FcPlus } from 'react-icons/fc';
 
-axios.defaults.baseURL = window.API_BASE;
+axios.defaults.baseURL = process.env.REACT_APP_API_BASE;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 class AddItem extends React.Component {

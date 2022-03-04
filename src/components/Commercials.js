@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Stack from "react-bootstrap/Stack";
 import Player from "./Player";
 import {default as axios} from "axios";
-axios.defaults.baseURL = window.API_BASE;
+axios.defaults.baseURL = process.env.REACT_APP_API_BASE;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 class Commercials extends Component {

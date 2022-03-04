@@ -3,9 +3,9 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Modal, Button, ButtonGroup }  from "react-bootstrap";
 import { default as axios } from "axios";
-import {FcFullTrash } from "react-icons/fc";
+import { FcFullTrash } from "react-icons/fc";
 
-axios.defaults.baseURL = window.API_BASE;
+axios.defaults.baseURL = process.env.REACT_APP_API_BASE;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 class DeleteItem extends React.Component {

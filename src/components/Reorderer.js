@@ -7,7 +7,7 @@ import AddItem from "./AddItem";
 
 import {default as axios} from "axios";
 import DeleteItem from "./DeleteItem";
-axios.defaults.baseURL = window.API_BASE;
+axios.defaults.baseURL = process.env.REACT_APP_API_BASE;
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
 const opts = {
