@@ -5,6 +5,10 @@
   "license": "NO LICENSE",
   "author": "quantumtom",
   "homepage": ".",
+  "engines": {
+    "node": "18.x",
+    "npm": "9.x"
+  },
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
